@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOKU — Transformações 1 ao 100</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #0a0005;
+    --bg2: #000;
+    --primary: #ff6b00;
+    --secondary: #ff9800;
+    --accent: #fff;
+    --aura: rgba(255,140,0,0.4);
+    --aura2: rgba(255,100,0,0.1);
+    --hair: #1a1a1a;
+    --text: #fff;
+    --glow: 0 0 30px var(--primary);
+    --particle: #ff8c00;
+    --bar: var(--primary);
+    --shadow: rgba(255,100,0,0.6);
+    --gi: #ff7a00;
+    --gi2: #1e4d99;
+    --belt: #1a1a1a;
+    --skin: #f0c080;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:100%; height:100%; overflow:hidden; }
+  
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: radial-gradient(ellipse at center, var(--bg1) 0%, var(--bg2) 100%);
+    color: var(--text);
+    transition: background 0.8s ease, color 0.8s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ANIMATED BG */
+  #bg-canvas {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    z-index: 0; pointer-events: none;
+  }
+
+  .bg-overlay {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: radial-gradient(ellipse at 50% 60%, var(--aura2) 0%, transparent 70%);
+    transition: background 0.8s ease;
+    z-index: 1; pointer-events: none;
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    position: relative; z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  /* TOP BAR */
+  .top-bar {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+  }
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem; font-weight: 900;
+    letter-spacing: 6px; text-transform: uppercase;
+    color: var(--primary);
+    text-shadow: var(--glow);
+    transition: color 0.8s, text-shadow 0.8s;
+  }
+  .power-level-display {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem; font-weight: 900;
+    color: var(--secondary);
+    text-shadow: 0 0 20px var(--secondary);
+    transition: color 0.5s, text-shadow 0.5s;
+    letter-spacing: 2px;
+  }
+  .power-label {
+    font-size: 0.65rem; letter-spacing: 4px; color: rgba(255,255,255,0.5);
+    text-align: right; display: block;
+  }
+
+  /* LEFT — CHARACTER AREA */
+  .character-area {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 20px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .transformation-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.8rem);
+    font-weight: 900;
+    color: var(--primary);
+    text-shadow: var(--glow), 0 0 60px var(--primary);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all 0.6s ease;
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+  .transformation-aka {
+    font-size: 0.85rem; letter-spacing: 5px; color: rgba(255,255,255,0.5);
+    text-align: center; margin-bottom: 30px;
+    text-transform: uppercase;
+    transition: color 0.6s;
+  }
+
+  /* GOKU SVG CHARACTER */
+  .character-wrapper {
+    position: relative;
+    width: 280px; height: 380px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .aura-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    animation: aura-pulse 2s ease-in-out infinite;
+    transition: border-color 0.8s, box-shadow 0.8s;
+  }
+  .aura-ring:nth-child(1) { width:320px; height:420px; opacity:0.3; animation-delay:0s; box-shadow: 0 0 20px var(--primary); }
+  .aura-ring:nth-child(2) { width:360px; height:460px; opacity:0.2; animation-delay:0.4s; }
+  .aura-ring:nth-child(3) { width:400px; height:500px; opacity:0.1; animation-delay:0.8s; }
+
+  @keyframes aura-pulse {
+    0%,100% { transform: scale(1); opacity:var(--op,0.3); }
+    50% { transform: scale(1.06); opacity: 0.05; }
+  }
+
+  .goku-svg {
+    width: 260px; height: 360px;
+    filter: drop-shadow(0 0 20px var(--primary));
+    transition: filter 0.8s ease;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* LIGHTNING EFFECT */
+  .lightning {
+    position: absolute; width: 100%; height: 100%;
+    pointer-events: none; opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .lightning.active { opacity: 1; }
+
+  /* RIGHT PANEL */
+  .info-panel {
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(16px);
+    border-left: 1px solid rgba(255,255,255,0.07);
+    padding: 30px 28px;
+    display: flex; flex-direction: column;
+    gap: 22px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .panel-section-title {
+    font-size: 0.6rem; letter-spacing: 6px; text-transform: uppercase;
+    color: var(--primary); opacity: 0.8;
+    transition: color 0.8s;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding-bottom: 8px;
+  }
+
+  .stat-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.85rem; margin-bottom: 10px;
+  }
+  .stat-label { color: rgba(255,255,255,0.5); letter-spacing: 1px; font-size:0.8rem; }
+  .stat-value { color: var(--secondary); font-weight: 700; font-size: 0.85rem; transition: color 0.8s; }
+
+  .stat-bar-wrap { margin-bottom: 12px; }
+  .stat-bar-label { display:flex; justify-content:space-between; font-size:0.75rem; margin-bottom:5px; color: rgba(255,255,255,0.5); }
+  .stat-bar { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+  .stat-bar-fill {
+    height:100%; border-radius:2px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 0.8s cubic-bezier(.4,0,.2,1), background 0.8s;
+    box-shadow: 0 0 8px var(--primary);
+  }
+
+  .description-text {
+    font-size: 0.88rem; line-height: 1.7;
+    color: rgba(255,255,255,0.72);
+    transition: color 0.6s;
+  }
+
+  .abilities-list { list-style: none; }
+  .abilities-list li {
+    font-size: 0.82rem; padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.75);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .abilities-list li::before {
+    content: '▸';
+    color: var(--primary);
+    transition: color 0.8s;
+    font-size: 0.7rem;
+  }
+
+  /* BOTTOM SLIDER */
+  .slider-area {
+    grid-column: 1 / -1;
+    padding: 16px 40px 22px;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .slider-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.62rem; letter-spacing: 3px; color: rgba(255,255,255,0.3);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .slider-wrapper { position: relative; }
+
+  #power-slider {
+    -webkit-appearance: none;
+    width: 100%; height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--primary) 0%, rgba(255,255,255,0.1) 0%);
+    outline: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  #power-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 15px var(--primary), 0 0 30px var(--primary);
+    cursor: pointer;
+    transition: background 0.5s, box-shadow 0.5s;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  #power-slider::-moz-range-thumb {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 15px var(--primary);
+    cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+
+  .transformation-markers {
+    display: flex; justify-content: space-between;
+    margin-top: 10px;
+    position: relative;
+  }
+  .marker {
+    font-size: 0.55rem; letter-spacing: 1px; color: rgba(255,255,255,0.25);
+    text-align: center; cursor: pointer;
+    transition: color 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60px;
+  }
+  .marker.active { color: var(--primary); font-weight: 700; }
+  .marker:hover { color: rgba(255,255,255,0.6); }
+
+  /* TIER BADGE */
+  .tier-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border: 1px solid var(--primary);
+    border-radius: 2px;
+    font-size: 0.65rem; letter-spacing: 4px;
+    color: var(--primary);
+    text-transform: uppercase;
+    transition: border-color 0.8s, color 0.8s;
+    margin-bottom: 16px;
+  }
+
+  /* MULTIPLIER BADGE */
+  .multiplier {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem; font-weight: 900;
+    color: var(--secondary);
+    text-shadow: 0 0 30px var(--secondary);
+    text-align: center;
+    transition: all 0.6s;
+    margin: 4px 0;
+  }
+  .mult-label { font-size: 0.6rem; letter-spacing: 4px; color: rgba(255,255,255,0.35); text-align:center; }
+
+  /* TRANSITION FLASH */
+  .flash-overlay {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: var(--primary);
+    pointer-events: none; z-index: 999;
+    opacity: 0; transition: none;
+  }
+  .flash-overlay.flash { animation: flash-anim 0.5s ease forwards; }
+  @keyframes flash-anim {
+    0% { opacity: 0.7; }
+    100% { opacity: 0; }
+  }
+
+  /* SCROLLBAR */
+  .info-panel::-webkit-scrollbar { width: 3px; }
+  .info-panel::-webkit-scrollbar-track { background: transparent; }
+  .info-panel::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 2px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 800px) {
+    .main { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto auto; }
+    .info-panel { max-height: 200px; border-left: none; border-top: 1px solid rgba(255,255,255,0.07); }
+    .top-bar { padding: 12px 20px; }
+    .slider-area { padding: 12px 20px 16px; }
+    .character-area { padding: 10px 20px; }
+    .character-wrapper { width: 200px; height: 270px; }
+    .goku-svg { width: 190px; height: 260px; }
+    .aura-ring:nth-child(1) { width: 230px; height: 300px; }
+    .aura-ring:nth-child(2) { width: 260px; height: 330px; }
+    .aura-ring:nth-child(3) { width: 290px; height: 360px; }
+  }
+
+  /* Extra glow layers for intense forms */
+  .intense-glow .character-wrapper::before {
+    content: '';
+    position: absolute;
+    width: 100%; height: 100%;
+    background: radial-gradient(ellipse, var(--aura) 0%, transparent 70%);
+    animation: glow-breathe 1.5s ease-in-out infinite;
+    z-index: -1;
+  }
+  @keyframes glow-breathe {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.6; }
+  }
+
+  .lightning-bolt {
+    position: absolute;
+    width: 2px;
+    background: var(--secondary);
+    opacity: 0;
+    box-shadow: 0 0 6px var(--secondary);
+    transform-origin: top;
+    animation: bolt 0.2s ease forwards;
+  }
+  @keyframes bolt { 0%{opacity:1} 100%{opacity:0; transform:scaleY(1.1)} }
+
+  .scan-line {
+    position: absolute; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    animation: scan 4s linear infinite;
+    opacity: 0.15;
+  }
+  @keyframes scan { 0%{top:0%} 100%{top:100%} }
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div class="bg-overlay" id="bg-overlay"></div>
+<div class="flash-overlay" id="flash"></div>
+<div class="scan-line"></div>
+
+<div class="main">
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="logo">SON GOKU ◆ Transformações</div>
+    <div>
+      <span class="power-label">NÍVEL DE PODER</span>
+      <div class="power-level-display" id="power-display">001</div>
+    </div>
+  </div>
+
+  <!-- CHARACTER AREA -->
+  <div class="character-area" id="char-area">
+    <div class="transformation-name" id="t-name">Forma Base</div>
+    <div class="transformation-aka" id="t-aka">Estado Natural · Guerreiro Saiyajin</div>
+    
+    <div class="character-wrapper" id="char-wrap">
+      <div class="aura-ring"></div>
+      <div class="aura-ring"></div>
+      <div class="aura-ring"></div>
+
+      <!-- GOKU SVG -->
+      <svg class="goku-svg" id="goku-svg" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
+        <!-- AURA GLOW -->
+        <defs>
+          <radialGradient id="aura-grad" cx="50%" cy="80%" r="50%">
+            <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="var(--primary)" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="glow-filter">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <radialGradient id="skin-grad" cx="50%" cy="30%" r="60%">
+            <stop offset="0%" stop-color="#f5c890"/>
+            <stop offset="100%" stop-color="#d4965a"/>
+          </radialGradient>
+        </defs>
+
+        <!-- AURA BASE -->
+        <ellipse cx="130" cy="290" rx="80" ry="30" fill="url(#aura-grad)" opacity="0.6"/>
+        <ellipse cx="130" cy="350" rx="60" ry="15" fill="url(#aura-grad)" opacity="0.3"/>
+
+        <!-- SHADOW -->
+        <ellipse cx="130" cy="348" rx="50" ry="8" fill="rgba(0,0,0,0.4)"/>
+
+        <!-- LEGS - GI PANTS -->
+        <rect id="leg-l" x="82" y="240" width="38" height="90" rx="6" fill="var(--gi)" opacity="0.95"/>
+        <rect id="leg-r" x="140" y="240" width="38" height="90" rx="6" fill="var(--gi)" opacity="0.95"/>
+        <!-- Leg detail lines -->
+        <line x1="101" y1="240" x2="101" y2="330" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+        <line x1="159" y1="240" x2="159" y2="330" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+        <!-- Boots -->
+        <rect x="80" y="318" width="43" height="20" rx="4" fill="#1a1a2e"/>
+        <rect x="138" y="318" width="43" height="20" rx="4" fill="#1a1a2e"/>
+
+        <!-- BELT -->
+        <rect x="80" y="235" width="100" height="12" rx="3" fill="var(--belt)"/>
+
+        <!-- BODY - GI TOP -->
+        <path id="gi-body" d="M75 180 Q65 200 62 245 L198 245 Q195 200 185 180 Z" fill="var(--gi)" opacity="0.95"/>
+        <!-- GI OPENING -->
+        <path d="M130 180 L118 245 L130 245 Z" fill="var(--gi2)" opacity="0.8"/>
+        <path d="M130 180 L142 245 L130 245 Z" fill="var(--gi2)" opacity="0.6"/>
+        <!-- GI Lines -->
+        <line x1="105" y1="185" x2="85" y2="245" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+        <line x1="155" y1="185" x2="175" y2="245" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+
+        <!-- WRISTBANDS -->
+        <rect x="60" y="235" width="20" height="12" rx="3" fill="white" opacity="0.85"/>
+        <rect x="180" y="235" width="20" height="12" rx="3" fill="white" opacity="0.85"/>
+
+        <!-- ARMS -->
+        <path id="arm-l" d="M75 185 Q48 200 55 250 Q62 265 75 258 Q80 240 85 225 Z" fill="url(#skin-grad)"/>
+        <path id="arm-r" d="M185 185 Q212 200 205 250 Q198 265 185 258 Q180 240 175 225 Z" fill="url(#skin-grad)"/>
+
+        <!-- HANDS -->
+        <ellipse cx="63" cy="262" rx="12" ry="10" fill="url(#skin-grad)"/>
+        <ellipse cx="197" cy="262" rx="12" ry="10" fill="url(#skin-grad)"/>
+
+        <!-- NECK -->
+        <rect x="118" y="158" width="24" height="25" rx="4" fill="url(#skin-grad)"/>
+
+        <!-- HEAD -->
+        <ellipse id="head" cx="130" cy="138" rx="42" ry="45" fill="url(#skin-grad)"/>
+
+        <!-- EYES -->
+        <ellipse cx="118" cy="135" rx="7" ry="6" fill="white"/>
+        <ellipse cx="142" cy="135" rx="7" ry="6" fill="white"/>
+        <ellipse id="eye-l" cx="119" cy="136" rx="4" ry="4" fill="#111"/>
+        <ellipse id="eye-r" cx="143" cy="136" rx="4" ry="4" fill="#111"/>
+        <!-- Eye shine -->
+        <circle cx="121" cy="134" r="1.5" fill="white" opacity="0.8"/>
+        <circle cx="145" cy="134" r="1.5" fill="white" opacity="0.8"/>
+
+        <!-- EYEBROWS -->
+        <path id="brow-l" d="M111 126 Q119 122 125 126" stroke="#5a3010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path id="brow-r" d="M135 126 Q141 122 149 126" stroke="#5a3010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+        <!-- NOSE -->
+        <ellipse cx="128" cy="146" rx="4" ry="3" fill="rgba(0,0,0,0.12)"/>
+
+        <!-- MOUTH -->
+        <path id="mouth" d="M120 156 Q130 162 140 156" stroke="#c07040" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- FACE MARKS / SCAR (optional) -->
+        <line x1="148" y1="132" x2="152" y2="142" stroke="rgba(0,0,0,0.1)" stroke-width="1.5"/>
+
+        <!-- EAR -->
+        <ellipse cx="88" cy="140" rx="6" ry="10" fill="#d4965a"/>
+        <ellipse cx="172" cy="140" rx="6" ry="10" fill="#d4965a"/>
+
+        <!-- HAIR - BASE FORM (black spiky) -->
+        <g id="hair-group" fill="var(--hair)" filter="url(#glow-filter)">
+          <!-- Base hair spikes -->
+          <path class="hair-base" d="M88 130 Q82 100 90 80 Q100 110 95 130 Z"/>
+          <path class="hair-base" d="M100 118 Q95 85 108 70 Q112 100 110 118 Z"/>
+          <path class="hair-base" d="M118 112 Q118 75 130 62 Q135 90 128 115 Z"/>
+          <path class="hair-base" d="M140 112 Q145 80 155 70 Q155 100 148 115 Z"/>
+          <path class="hair-base" d="M155 120 Q162 90 170 80 Q168 108 162 128 Z"/>
+          <path class="hair-base" d="M162 132 Q172 105 178 100 Q174 128 168 140 Z"/>
+          <!-- Back hair -->
+          <path class="hair-base" d="M88 130 Q80 145 84 165 Q92 150 95 130 Z"/>
+          <path class="hair-base" d="M168 135 Q176 148 173 168 Q165 152 162 132 Z"/>
+          <!-- Top head -->
+          <ellipse cx="130" cy="95" rx="38" ry="15" class="hair-base"/>
+        </g>
+
+        <!-- TAIL (optional) -->
+        <path id="tail" d="M130 240 Q150 270 165 290 Q170 298 162 302 Q148 298 138 278 Q128 256 130 240" fill="#8B5E3C" opacity="0"/>
+
+        <!-- ENERGY PARTICLES (animated via JS) -->
+        <g id="energy-group" opacity="0.7">
+          <circle class="energy-dot" cx="90" cy="200" r="2" fill="var(--secondary)" opacity="0">
+            <animate attributeName="cy" values="200;150;200" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.8;0" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle class="energy-dot" cx="170" cy="220" r="2" fill="var(--secondary)" opacity="0">
+            <animate attributeName="cy" values="220;170;220" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+            <animate attributeName="opacity" values="0;0.8;0" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+          </circle>
+          <circle class="energy-dot" cx="130" cy="180" r="3" fill="var(--primary)" opacity="0">
+            <animate attributeName="cy" values="180;120;180" dur="1.8s" repeatCount="indefinite" begin="1s"/>
+            <animate attributeName="opacity" values="0;1;0" dur="1.8s" repeatCount="indefinite" begin="1s"/>
+          </circle>
+        </g>
+
+        <!-- LIGHTNING (SS2 / UI) -->
+        <g id="lightning-group" opacity="0" filter="url(#glow-filter)">
+          <path d="M100 160 L90 185 L105 180 L95 210" stroke="var(--secondary)" stroke-width="2" fill="none" opacity="0.8"/>
+          <path d="M160 155 L172 178 L158 174 L168 204" stroke="var(--secondary)" stroke-width="2" fill="none" opacity="0.8"/>
+          <path d="M118 115 L112 130 L120 128 L114 145" stroke="var(--secondary)" stroke-width="1.5" fill="none" opacity="0.6"/>
+          <path d="M145 112 L151 127 L143 125 L149 142" stroke="var(--secondary)" stroke-width="1.5" fill="none" opacity="0.6"/>
+        </g>
+
+        <!-- AURA FLAMES (top) -->
+        <g id="aura-flames" opacity="0.4">
+          <path d="M80 180 Q70 150 80 120 Q90 150 85 180 Z" fill="var(--primary)">
+            <animate attributeName="d" values="M80 180 Q70 150 80 120 Q90 150 85 180 Z;M80 180 Q68 140 82 110 Q92 145 85 180 Z;M80 180 Q70 150 80 120 Q90 150 85 180 Z" dur="1.5s" repeatCount="indefinite"/>
+          </path>
+          <path d="M180 180 Q190 150 180 120 Q170 150 175 180 Z" fill="var(--primary)">
+            <animate attributeName="d" values="M180 180 Q190 150 180 120 Q170 150 175 180 Z;M180 180 Q192 140 178 110 Q168 145 175 180 Z;M180 180 Q190 150 180 120 Q170 150 175 180 Z" dur="1.8s" repeatCount="indefinite"/>
+          </path>
+          <path d="M110 175 Q100 135 115 100 Q125 135 118 175 Z" fill="var(--primary)">
+            <animate attributeName="d" values="M110 175 Q100 135 115 100 Q125 135 118 175 Z;M110 175 Q98 130 117 95 Q127 132 118 175 Z;M110 175 Q100 135 115 100 Q125 135 118 175 Z" dur="2s" repeatCount="indefinite"/>
+          </path>
+          <path d="M150 175 Q160 135 145 100 Q135 135 142 175 Z" fill="var(--primary)">
+            <animate attributeName="d" values="M150 175 Q160 135 145 100 Q135 135 142 175 Z;M150 175 Q162 130 143 95 Q133 132 142 175 Z;M150 175 Q160 135 145 100 Q135 135 142 175 Z" dur="1.6s" repeatCount="indefinite"/>
+          </path>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- RIGHT INFO PANEL -->
+  <div class="info-panel">
+    <div>
+      <div class="panel-section-title">Identificação</div>
+      <div style="margin-top:14px">
+        <div class="tier-badge" id="t-tier">NÍVEL MORTAL</div>
+        <div class="multiplier" id="t-mult">x1</div>
+        <div class="mult-label">MULTIPLICADOR DE PODER BASE</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel-section-title">Atributos</div>
+      <div style="margin-top:14px">
+        <div class="stat-bar-wrap">
+          <div class="stat-bar-label"><span>Força</span><span id="stat-str">12%</span></div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="bar-str" style="width:12%"></div></div>
+        </div>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar-label"><span>Velocidade</span><span id="stat-spd">10%</span></div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="bar-spd" style="width:10%"></div></div>
+        </div>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar-label"><span>Ki / Energia</span><span id="stat-ki">8%</span></div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="bar-ki" style="width:8%"></div></div>
+        </div>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar-label"><span>Defesa</span><span id="stat-def">15%</span></div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="bar-def" style="width:15%"></div></div>
+        </div>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar-label"><span>Instinto</span><span id="stat-ins">5%</span></div>
+          <div class="stat-bar"><div class="stat-bar-fill" id="bar-ins" style="width:5%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel-section-title">Descrição</div>
+      <p class="description-text" id="t-desc" style="margin-top:12px">
+        A forma base de Goku representa o estado natural de um Saiyajin puro. Mesmo sem transformações, Goku já possui uma força extraordinária forjada por anos de treinamento intenso.
+      </p>
+    </div>
+
+    <div>
+      <div class="panel-section-title">Habilidades</div>
+      <ul class="abilities-list" id="t-abilities" style="margin-top:12px">
+        <li>Kamehameha</li>
+        <li>Jan-Ken</li>
+        <li>Controle de Ki</li>
+        <li>Sobrevivência Saiyajin</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="panel-section-title">Aparições</div>
+      <div class="stat-row" style="margin-top:12px">
+        <span class="stat-label">Série</span>
+        <span class="stat-value" id="t-series">Dragon Ball</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Arco</span>
+        <span class="stat-value" id="t-arc">Torneio Mundial</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Nível</span>
+        <span class="stat-value" id="t-level">1 — 5</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDER AREA -->
+  <div class="slider-area">
+    <div class="slider-labels">
+      <span>Nível 1 — Forma Base</span>
+      <span>⟵ Arraste para evoluir ⟶</span>
+      <span>Nível 100 — Ultra Instinto Verdadeiro</span>
+    </div>
+    <div class="slider-wrapper">
+      <input type="range" id="power-slider" min="1" max="100" value="1" step="1">
+    </div>
+    <div class="transformation-markers" id="markers"></div>
+  </div>
+</div>
+
+<script>
+const TRANSFORMATIONS = [
+  {
+    range: [1, 5],
+    name: "Forma Base",
+    aka: "Estado Natural · Guerreiro Saiyajin",
+    tier: "Nível Mortal",
+    mult: "×1",
+    series: "Dragon Ball",
+    arc: "Torneio Mundial",
+    desc: "A forma base de Goku representa o estado natural de um Saiyajin puro. Mesmo sem transformações, Goku já possui uma força extraordinária forjada por anos de treinamento intenso com o Mestre Kame e Kami-sama.",
+    abilities: ["Kamehameha", "Jan-Ken", "Controle de Ki Básico", "Resistência Saiyajin"],
+    stats: { str:12, spd:10, ki:8, def:15, ins:5 },
+    theme: {
+      bg1: "#0a0005", bg2: "#000008",
+      primary: "#ff6b00", secondary: "#ffaa44",
+      aura: "rgba(255,140,0,0.3)", aura2: "rgba(255,100,0,0.05)",
+      hair: "#111111",
+      gi: "#e8620a", gi2: "#1e4d99", belt: "#111",
+      particle: "#ff8c00", particleCount: 20,
+      hairStyle: "base", eyeColor: "#111",
+      lightningOpacity: 0, auraFlameOpacity: 0.2,
+      glowIntensity: 1,
+    }
+  },
+  {
+    range: [6, 10],
+    name: "Kaioken",
+    aka: "Técnica do Rei Kaioh · Aura Carmesim",
+    tier: "Nível Avançado",
+    mult: "×2",
+    series: "Dragon Ball Z",
+    arc: "Saga de Saiyan",
+    desc: "O Kaioken é uma técnica ensinada pelo Rei Kaioh que multiplica temporariamente o ki de Goku, amplificando sua força, velocidade e defesa. O corpo envolve-se em uma aura vermelha intensa que queima por dentro.",
+    abilities: ["Kaioken Attack", "Kamehameha Duplo", "Sobrecarga de Ki", "Reflexos Amplificados"],
+    stats: { str:24, spd:22, ki:20, def:18, ins:12 },
+    theme: {
+      bg1: "#1a0000", bg2: "#0a0000",
+      primary: "#ff1a00", secondary: "#ff6644",
+      aura: "rgba(255,30,0,0.5)", aura2: "rgba(255,0,0,0.1)",
+      hair: "#111111",
+      gi: "#cc1500", gi2: "#660000", belt: "#222",
+      particle: "#ff2200", particleCount: 35,
+      hairStyle: "base", eyeColor: "#111",
+      lightningOpacity: 0, auraFlameOpacity: 0.5,
+      glowIntensity: 1.5,
+    }
+  },
+  {
+    range: [11, 15],
+    name: "Kaioken x3",
+    aka: "Kaioken Triplo · Limite Perigoso",
+    tier: "Nível Avançado+",
+    mult: "×3",
+    series: "Dragon Ball Z",
+    arc: "Saga de Saiyan",
+    desc: "Triplicando os efeitos do Kaioken, Goku atinge velocidades impossíveis. A aura vermelha torna-se mais espessa e violenta, e o risco de destruição do corpo aumenta drasticamente.",
+    abilities: ["Kaioken Triple", "Velocidade Supersônica", "Ki Explosivo", "Aura Repelente"],
+    stats: { str:34, spd:33, ki:29, def:20, ins:14 },
+    theme: {
+      bg1: "#1f0000", bg2: "#0d0000",
+      primary: "#ff2800", secondary: "#ff7755",
+      aura: "rgba(255,40,0,0.55)", aura2: "rgba(200,0,0,0.12)",
+      hair: "#111111",
+      gi: "#dd1800", gi2: "#550000", belt: "#1a0000",
+      particle: "#ff3300", particleCount: 45,
+      hairStyle: "base", eyeColor: "#111",
+      lightningOpacity: 0, auraFlameOpacity: 0.55,
+      glowIntensity: 2,
+    }
+  },
+  {
+    range: [16, 20],
+    name: "Kaioken x4",
+    aka: "Kaioken Quádruplo · Beira do Colapso",
+    tier: "Crítico",
+    mult: "×4",
+    series: "Dragon Ball Z",
+    arc: "Saga de Namek",
+    desc: "O limite do Kaioken convencional. Goku usa esta forma em desespero contra Vegeta em seu SSJ. O corpo está literalmente à beira do colapso — cada segundo custa caro.",
+    abilities: ["Kamehameha x4", "Velocidade Máxima Kaioken", "Aura Explosiva", "Força Crítica"],
+    stats: { str:44, spd:42, ki:38, def:22, ins:16 },
+    theme: {
+      bg1: "#220000", bg2: "#100000",
+      primary: "#ff3300", secondary: "#ff8866",
+      aura: "rgba(255,51,0,0.6)", aura2: "rgba(220,0,0,0.15)",
+      hair: "#111111",
+      gi: "#ee1f00", gi2: "#440000", belt: "#1a0000",
+      particle: "#ff4400", particleCount: 55,
+      hairStyle: "base", eyeColor: "#111",
+      lightningOpacity: 0, auraFlameOpacity: 0.65,
+      glowIntensity: 2.5,
+    }
+  },
+  {
+    range: [21, 25],
+    name: "Kaioken x10",
+    aka: "Dez Vezes Kaioken · Sobrecarga Máxima",
+    tier: "CRÍTICO MÁXIMO",
+    mult: "×10",
+    series: "Dragon Ball Z",
+    arc: "Saga de Namek",
+    desc: "Uma aposta desesperada contra Freezer. Mesmo com x10 Kaioken, Goku é superado facilmente. Esta forma representa o limite absoluto do poder humano/Saiyajin sem transformação SSJ.",
+    abilities: ["Kaioken Kamehameha x10", "Explosão de Ki Total", "Velocidade Relâmpago", "Aura de Destruição"],
+    stats: { str:52, spd:50, ki:46, def:24, ins:18 },
+    theme: {
+      bg1: "#280000", bg2: "#140000",
+      primary: "#ff4400", secondary: "#ff9966",
+      aura: "rgba(255,68,0,0.65)", aura2: "rgba(230,20,0,0.18)",
+      hair: "#111111",
+      gi: "#ff2200", gi2: "#330000", belt: "#1a0000",
+      particle: "#ff5500", particleCount: 65,
+      hairStyle: "base", eyeColor: "#111",
+      lightningOpacity: 0.3, auraFlameOpacity: 0.75,
+      glowIntensity: 3,
+    }
+  },
+  {
+    range: [26, 30],
+    name: "Kaioken x20",
+    aka: "Vinte Vezes Kaioken · Além do Impossível",
+    tier: "ALÉM DO LIMITE",
+    mult: "×20",
+    series: "Dragon Ball Z",
+    arc: "Namek — Fase Final",
+    desc: "O ápice do Kaioken. Usado em desespero absoluto, este nível literalmente destrói o corpo. A aura cobre kilômetros e o planeta treme. Mesmo assim, Freezer Final nem saiu do lugar.",
+    abilities: ["Kaioken Final", "Kamehameha Devastador", "Explosão Planetária de Ki", "Último Recurso"],
+    stats: { str:58, spd:56, ki:52, def:26, ins:20 },
+    theme: {
+      bg1: "#2d0000", bg2: "#180000",
+      primary: "#ff5500", secondary: "#ffaa77",
+      aura: "rgba(255,85,0,0.7)", aura2: "rgba(240,30,0,0.2)",
+      hair: "#111111",
+      gi: "#ff3300", gi2: "#220000", belt: "#1a0000",
+      particle: "#ff6600", particleCount: 75,
+      hairStyle: "base", eyeColor: "#333",
+      lightningOpacity: 0.4, auraFlameOpacity: 0.85,
+      glowIntensity: 3.5,
+    }
+  },
+  {
+    range: [31, 40],
+    name: "Super Saiyajin",
+    aka: "SSJ1 · A Lenda Desperta",
+    tier: "LENDÁRIO",
+    mult: "×50",
+    series: "Dragon Ball Z",
+    arc: "Namek — Frieza Saga",
+    desc: "A transformação que sacudiu o universo. Desperta com a morte de Krilin — a dor e a raiva de Goku transcendem os limites mortais. O cabelo torna-se dourado, os olhos verde-azulados, e a aura dourada envolve tudo.",
+    abilities: ["SSJ Kamehameha", "Golpe Dourado", "Velocidade Lendária", "Resistência Amplificada 50×", "Aura Dourada"],
+    stats: { str:70, spd:68, ki:65, def:55, ins:30 },
+    theme: {
+      bg1: "#0d0a00", bg2: "#050400",
+      primary: "#ffd700", secondary: "#fff176",
+      aura: "rgba(255,215,0,0.5)", aura2: "rgba(255,200,0,0.12)",
+      hair: "#ffd700",
+      gi: "#e8620a", gi2: "#1e4d99", belt: "#111",
+      particle: "#ffe000", particleCount: 80,
+      hairStyle: "ssj", eyeColor: "#00aaaa",
+      lightningOpacity: 0.5, auraFlameOpacity: 0.7,
+      glowIntensity: 4,
+    }
+  },
+  {
+    range: [41, 46],
+    name: "Super Saiyajin 2",
+    aka: "SSJ2 · Ascensão Celestial",
+    tier: "SUPER ELITE",
+    mult: "×100",
+    series: "Dragon Ball Z",
+    arc: "Cell Games",
+    desc: "Mais poderosa que o SSJ1, esta forma foi alcançada primeiro por Gohan. Goku a domina após treinamento no Outro Mundo. Os raios elétricos e a aura mais aguda distinguem esta forma da anterior.",
+    abilities: ["SSJ2 Kamehameha", "Raios Elétricos", "Golpe Celestial", "Velocidade Ultra-Sônica", "Contra-Ataque Perfeito"],
+    stats: { str:80, spd:78, ki:75, def:62, ins:40 },
+    theme: {
+      bg1: "#0a0d00", bg2: "#040600",
+      primary: "#ffe000", secondary: "#ffffff",
+      aura: "rgba(255,224,0,0.55)", aura2: "rgba(255,255,150,0.1)",
+      hair: "#ffe000",
+      gi: "#e8620a", gi2: "#1e4d99", belt: "#111",
+      particle: "#ffee00", particleCount: 90,
+      hairStyle: "ssj2", eyeColor: "#00cccc",
+      lightningOpacity: 0.9, auraFlameOpacity: 0.65,
+      glowIntensity: 4.5,
+    }
+  },
+  {
+    range: [47, 52],
+    name: "Super Saiyajin 3",
+    aka: "SSJ3 · O Rugido que Abala o Cosmo",
+    tier: "TRANSCENDENTE",
+    mult: "×400",
+    series: "Dragon Ball Z",
+    arc: "Buu Saga",
+    desc: "O cabelo dourado cresce até os pés, as sobrancelhas desaparecem e a testa alarga. Uma quantidade absurda de ki é liberada, causando terremotos planetários. A forma mais extrema da transformação SSJ clássica.",
+    abilities: ["SSJ3 Kamehameha", "Dragon Fist", "Rugido Cósmico", "Ki Ilimitado", "Velocidade Dimensional"],
+    stats: { str:88, spd:82, ki:90, def:65, ins:35 },
+    theme: {
+      bg1: "#0a0b00", bg2: "#030400",
+      primary: "#ffcc00", secondary: "#ffffaa",
+      aura: "rgba(255,200,0,0.6)", aura2: "rgba(255,220,0,0.15)",
+      hair: "#ffcc00",
+      gi: "#e8620a", gi2: "#1e4d99", belt: "#111",
+      particle: "#ffdd00", particleCount: 100,
+      hairStyle: "ssj3", eyeColor: "#00ddaa",
+      lightningOpacity: 0.6, auraFlameOpacity: 0.8,
+      glowIntensity: 5,
+    }
+  },
+  {
+    range: [53, 58],
+    name: "Super Saiyajin 4",
+    aka: "SSJ4 · O Grande Saiyajin Vermelho (GT)",
+    tier: "SAIYAJIN SUPREMO",
+    mult: "×4000",
+    series: "Dragon Ball GT",
+    arc: "Baby Saga",
+    desc: "Exclusiva de Dragon Ball GT. Combinando a transformação Oozaru Dourado com o controle total, Goku adquire pelo vermelho, cabelo preto longo e olhos verdes. Sua aparência torna-se mais selvagem e poderosa.",
+    abilities: ["Kamehameha x10", "Explosão de Pelagem", "Rugido Oozaru", "Força Bestial Saiyajin", "Sentidos Sobrenaturais"],
+    stats: { str:91, spd:85, ki:86, def:82, ins:50 },
+    theme: {
+      bg1: "#0a0000", bg2: "#050000",
+      primary: "#cc1100", secondary: "#ff6644",
+      aura: "rgba(200,17,0,0.55)", aura2: "rgba(180,0,0,0.12)",
+      hair: "#111111",
+      gi: "#2a0000", gi2: "#cc1100", belt: "#333",
+      particle: "#dd2200", particleCount: 95,
+      hairStyle: "ssj4", eyeColor: "#00aa00",
+      lightningOpacity: 0.4, auraFlameOpacity: 0.6,
+      glowIntensity: 4.5,
+    }
+  },
+  {
+    range: [59, 64],
+    name: "Super Saiyajin God",
+    aka: "SSG · Poder Divino Vermelho",
+    tier: "DIVINO",
+    mult: "×God",
+    series: "Dragon Ball Super",
+    arc: "Battle of Gods",
+    desc: "Através do ritual de seis Saiyajins de coração puro, Goku transcende a barreira mortal e absorve o ki divino. O corpo fica mais esbelto, o cabelo vermelho vibrante e uma aura de chamas divinas o envolve.",
+    abilities: ["God Kamehameha", "Ki Divino", "Percepção de Ki Divino", "Chamas da Divindade", "Contra-ataque Divino"],
+    stats: { str:93, spd:91, ki:92, def:80, ins:70 },
+    theme: {
+      bg1: "#0a0008", bg2: "#050005",
+      primary: "#cc0044", secondary: "#ff4488",
+      aura: "rgba(200,0,68,0.55)", aura2: "rgba(180,0,50,0.12)",
+      hair: "#cc0044",
+      gi: "#e8620a", gi2: "#1e4d99", belt: "#111",
+      particle: "#dd0055", particleCount: 90,
+      hairStyle: "ssg", eyeColor: "#cc0044",
+      lightningOpacity: 0.3, auraFlameOpacity: 0.75,
+      glowIntensity: 5,
+    }
+  },
+  {
+    range: [65, 72],
+    name: "Super Saiyajin Blue",
+    aka: "SSGSS · Saiyajin Deus Super Saiyajin",
+    tier: "DIVINO SUPREMO",
+    mult: "×God×50",
+    series: "Dragon Ball Super",
+    arc: "Frieza Golden — Champa",
+    desc: "Combinando o ki do SSG com a transformação SSJ clássica, nasce o azul divino. O cabelo e a aura tornam-se azul-celeste, e o ki divino cobre o corpo como uma armadura invisível impossível de sentir.",
+    abilities: ["Blue Kamehameha", "Final Flash Divino", "Ki Divino SSJ", "Resistência Divina", "Velocidade da Luz"],
+    stats: { str:95, spd:93, ki:95, def:85, ins:72 },
+    theme: {
+      bg1: "#000a14", bg2: "#00050a",
+      primary: "#0077ff", secondary: "#44ccff",
+      aura: "rgba(0,119,255,0.55)", aura2: "rgba(0,100,255,0.12)",
+      hair: "#0077ff",
+      gi: "#e8620a", gi2: "#003399", belt: "#111",
+      particle: "#0088ff", particleCount: 95,
+      hairStyle: "ssb", eyeColor: "#0055cc",
+      lightningOpacity: 0.5, auraFlameOpacity: 0.7,
+      glowIntensity: 5.5,
+    }
+  },
+  {
+    range: [73, 78],
+    name: "SSB Kaioken",
+    aka: "Super Saiyajin Blue Kaioken",
+    tier: "DIVINO IMPOSSÍVEL",
+    mult: "×God×50×2",
+    series: "Dragon Ball Super",
+    arc: "Torneio of Destroyers",
+    desc: "Goku combina o Kaioken com o SSB — uma técnica considerada impossível até então. A aura torna-se roxo-avermelhada, misturando o azul do SSB com o vermelho do Kaioken. Uma combinação que só Goku poderia dominar.",
+    abilities: ["SSB Kaioken Kamehameha", "Double Aura", "Velocidade Dimensional", "Ki Divino Amplificado", "Hit Breaker"],
+    stats: { str:96, spd:95, ki:96, def:83, ins:75 },
+    theme: {
+      bg1: "#05000d", bg2: "#020008",
+      primary: "#7700ff", secondary: "#bb44ff",
+      aura: "rgba(119,0,255,0.55)", aura2: "rgba(100,0,220,0.12)",
+      hair: "#4400ff",
+      gi: "#cc1100", gi2: "#003399", belt: "#1a0033",
+      particle: "#8800ff", particleCount: 100,
+      hairStyle: "ssb", eyeColor: "#7700ff",
+      lightningOpacity: 0.6, auraFlameOpacity: 0.75,
+      glowIntensity: 6,
+    }
+  },
+  {
+    range: [79, 84],
+    name: "SSB Kaioken x10",
+    aka: "SSB Kaioken Dez Vezes · Além da Divindade",
+    tier: "APOCALÍPTICO",
+    mult: "×God×500",
+    series: "Dragon Ball Super",
+    arc: "Torneio dos 6 Universos",
+    desc: "Contra Hit, Goku eleva o Kaioken ao nível x10 enquanto mantém o SSB. A sobrecarga é tanta que o espaço ao redor parece se comprimir. Esta foi a técnica que finalmente impressionou Hit — o assassino mais poderoso do Universo 6.",
+    abilities: ["X10 SSB Kaioken Kamehameha", "Implosão de Ki", "Velocidade Infinita", "Aura Duple Dimensional", "Transcendência Dupla"],
+    stats: { str:97, spd:97, ki:97, def:84, ins:76 },
+    theme: {
+      bg1: "#08000f", bg2: "#04000a",
+      primary: "#9900ff", secondary: "#cc66ff",
+      aura: "rgba(153,0,255,0.6)", aura2: "rgba(130,0,230,0.15)",
+      hair: "#5500ee",
+      gi: "#dd1100", gi2: "#002288", belt: "#1a0044",
+      particle: "#aa00ff", particleCount: 110,
+      hairStyle: "ssb", eyeColor: "#9900ff",
+      lightningOpacity: 0.7, auraFlameOpacity: 0.8,
+      glowIntensity: 6.5,
+    }
+  },
+  {
+    range: [85, 89],
+    name: "SSB Kaioken x20",
+    aka: "SSB Kaioken Vinte Vezes · Beira da Extinção",
+    tier: "ALÉM DO DIVINO",
+    mult: "×God×1000",
+    series: "Dragon Ball Super",
+    arc: "Torneio do Poder",
+    desc: "O limite absoluto desta combinação. Usado contra Jiren no Torneio do Poder, o esforço é tão extremo que o corpo começa a falhar após o uso. O ki literalmente rasga o espaço circundante.",
+    abilities: ["X20 SSB Kaioken Kamehameha", "Rasgo Dimensional", "Aura Apocalíptica", "Jiren Breaker", "Surto Final"],
+    stats: { str:97, spd:97, ki:98, def:84, ins:77 },
+    theme: {
+      bg1: "#09000f", bg2: "#050008",
+      primary: "#aa00ff", secondary: "#dd77ff",
+      aura: "rgba(170,0,255,0.65)", aura2: "rgba(150,0,240,0.18)",
+      hair: "#6600ee",
+      gi: "#ee1100", gi2: "#001177", belt: "#200055",
+      particle: "#bb00ff", particleCount: 120,
+      hairStyle: "ssb", eyeColor: "#aa00ff",
+      lightningOpacity: 0.75, auraFlameOpacity: 0.85,
+      glowIntensity: 7,
+    }
+  },
+  {
+    range: [90, 93],
+    name: "Ultra Instinto Sinal",
+    aka: "Migatte no Goku'i · Presságio",
+    tier: "INSTINTO DIVINO",
+    mult: "×∞ (Incompleto)",
+    series: "Dragon Ball Super",
+    arc: "Torneio do Poder",
+    desc: "O corpo age por conta própria, além do controle da mente. Goku entra acidentalmente neste estado durante o Torneio do Poder. O cabelo fica prateado-escuro com reflexos, os olhos prateados brilham e uma aura prateada-cinza o envolve.",
+    abilities: ["Ultra Instinct Dodge", "Ataques Automáticos", "Corpo Autônomo", "Percepção Infinita", "Reflexo Além da Divindade"],
+    stats: { str:95, spd:100, ki:96, def:99, ins:90 },
+    theme: {
+      bg1: "#050508", bg2: "#020205",
+      primary: "#aaaacc", secondary: "#eeeeff",
+      aura: "rgba(170,170,200,0.5)", aura2: "rgba(200,200,255,0.1)",
+      hair: "#888899",
+      gi: "#e8620a", gi2: "#1e4d99", belt: "#333",
+      particle: "#ccccee", particleCount: 100,
+      hairStyle: "ui", eyeColor: "#ccccff",
+      lightningOpacity: 0.4, auraFlameOpacity: 0.55,
+      glowIntensity: 6,
+    }
+  },
+  {
+    range: [94, 97],
+    name: "Ultra Instinto Dominado",
+    aka: "Migatte no Goku'i Perfeito · Divindade da Batalha",
+    tier: "DEUS DA BATALHA",
+    mult: "×∞ (Completo)",
+    series: "Dragon Ball Super",
+    arc: "Torneio do Poder — Jiren Final",
+    desc: "O Ultra Instinto em sua forma completa e dominada. O cabelo torna-se totalmente prateado, os olhos prata brilham com luz divina e o Rindo de Beerus desaparece de surpresa. Esta forma superou Jiren em plena força.",
+    abilities: ["MUI Kamehameha", "Defesa Perfeita", "Ataque Autônomo Perfeito", "Velocidade do Pensamento", "Divindade da Batalha", "Romper Limites"],
+    stats: { str:99, spd:100, ki:99, def:100, ins:99 },
+    theme: {
+      bg1: "#040408", bg2: "#020204",
+      primary: "#ccccff", secondary: "#ffffff",
+      aura: "rgba(200,200,255,0.65)", aura2: "rgba(220,220,255,0.15)",
+      hair: "#ccccff",
+      gi: "#e8620a", gi2: "#1e4d99", belt: "#333",
+      particle: "#ddddef", particleCount: 130,
+      hairStyle: "mui", eyeColor: "#ffffff",
+      lightningOpacity: 0.6, auraFlameOpacity: 0.85,
+      glowIntensity: 8,
+    }
+  },
+  {
+    range: [98, 100],
+    name: "Ultra Instinto Verdadeiro",
+    aka: "True Ultra Instinct · Além dos Deuses",
+    tier: "ALÉM DOS DEUSES",
+    mult: "×∞+∞",
+    series: "Dragon Ball Super: Super Hero / Manga",
+    arc: "Granolah Survivor / Moro",
+    desc: "A forma definitiva do Ultra Instinto, onde Goku incorpora suas emoções Saiyajin diretamente no poder divino do UI. Em vez de suprimir sentimentos, ele os canaliza — tornando-se algo que nem os Anjos poderiam prever. Uma força além de qualquer escala.",
+    abilities: ["True UI Kamehameha Ancestral", "Emoção como Arma Divina", "Transcendência Total", "Singularidade do Guerreiro", "Poder Infinito", "Forma Além da Classificação"],
+    stats: { str:100, spd:100, ki:100, def:100, ins:100 },
+    theme: {
+      bg1: "#000005", bg2: "#000000",
+      primary: "#ffffff", secondary: "#aaccff",
+      aura: "rgba(255,255,255,0.7)", aura2: "rgba(200,220,255,0.2)",
+      hair: "#ffffff",
+      gi: "#e8620a", gi2: "#1e4d99", belt: "#333",
+      particle: "#ffffff", particleCount: 150,
+      hairStyle: "true-ui", eyeColor: "#ffffff",
+      lightningOpacity: 0.8, auraFlameOpacity: 1,
+      glowIntensity: 10,
+    }
+  }
+];
+
+const hairPaths = {
+  base: `
+    <path d="M88 130 Q82 100 90 80 Q100 110 95 130 Z"/>
+    <path d="M100 118 Q95 85 108 70 Q112 100 110 118 Z"/>
+    <path d="M118 112 Q118 75 130 62 Q135 90 128 115 Z"/>
+    <path d="M140 112 Q145 80 155 70 Q155 100 148 115 Z"/>
+    <path d="M155 120 Q162 90 170 80 Q168 108 162 128 Z"/>
+    <path d="M162 132 Q172 105 178 100 Q174 128 168 140 Z"/>
+    <path d="M88 130 Q80 145 84 165 Q92 150 95 130 Z"/>
+    <path d="M168 135 Q176 148 173 168 Q165 152 162 132 Z"/>
+    <ellipse cx="130" cy="97" rx="38" ry="14"/>
+  `,
+  ssj: `
+    <path d="M82 135 Q72 98 84 65 Q98 105 94 135 Z"/>
+    <path d="M96 118 Q88 78 102 52 Q112 88 108 118 Z"/>
+    <path d="M112 110 Q110 68 126 44 Q134 80 126 112 Z"/>
+    <path d="M136 108 Q142 70 156 48 Q158 85 150 110 Z"/>
+    <path d="M152 116 Q162 82 174 62 Q172 100 164 122 Z"/>
+    <path d="M165 128 Q178 98 184 85 Q178 120 170 138 Z"/>
+    <path d="M84 135 Q74 152 78 178 Q90 158 95 135 Z"/>
+    <path d="M172 138 Q182 152 178 175 Q168 156 165 135 Z"/>
+    <ellipse cx="130" cy="90" rx="42" ry="16"/>
+    <path d="M100 60 Q95 30 108 10 Q118 40 115 62 Z"/>
+    <path d="M125 55 Q125 20 135 0 Q142 30 138 57 Z"/>
+  `,
+  ssj2: `
+    <path d="M80 138 Q68 98 82 60 Q98 100 93 138 Z"/>
+    <path d="M94 118 Q86 76 100 48 Q112 84 107 120 Z"/>
+    <path d="M110 108 Q108 64 124 38 Q134 75 125 110 Z"/>
+    <path d="M136 106 Q144 66 158 44 Q160 82 152 108 Z"/>
+    <path d="M154 112 Q165 78 178 56 Q176 95 165 118 Z"/>
+    <path d="M167 125 Q180 95 188 80 Q182 115 172 135 Z"/>
+    <path d="M82 138 Q70 158 74 182 Q88 162 94 138 Z"/>
+    <path d="M174 136 Q186 155 182 178 Q170 158 167 136 Z"/>
+    <ellipse cx="130" cy="88" rx="44" ry="17"/>
+    <path d="M96 58 Q88 22 104 -2 Q116 32 112 60 Z"/>
+    <path d="M122 52 Q120 14 132 -8 Q142 26 138 54 Z"/>
+    <path d="M148 56 Q152 20 164 4 Q166 36 158 60 Z"/>
+  `,
+  ssj3: `
+    <path d="M80 140 Q66 100 80 58 Q96 98 92 140 Z"/>
+    <path d="M92 120 Q84 78 98 48 Q110 82 106 122 Z"/>
+    <path d="M108 108 Q106 62 120 34 Q132 70 124 110 Z"/>
+    <path d="M134 106 Q142 62 158 38 Q162 78 152 108 Z"/>
+    <path d="M152 112 Q164 74 180 50 Q178 90 166 116 Z"/>
+    <path d="M168 124 Q182 92 192 74 Q186 112 174 132 Z"/>
+    <path d="M80 140 Q68 160 72 190 Q86 165 92 140 Z"/>
+    <path d="M176 132 Q190 152 186 182 Q172 160 168 135 Z"/>
+    <ellipse cx="130" cy="86" rx="46" ry="18"/>
+    <path d="M92 58 Q82 18 98 -10 Q114 28 110 60 Z"/>
+    <path d="M118 50 Q114 8 128 -18 Q140 22 136 52 Z"/>
+    <path d="M144 50 Q148 10 162 -10 Q166 28 158 52 Z"/>
+    <path d="M130 340 Q110 310 90 280 Q85 265 95 260 Q108 275 120 300 Q130 320 130 340 Z"/>
+    <path d="M150 320 Q158 295 148 270 Q138 260 130 270 Q130 295 135 320 Q140 335 150 320 Z"/>
+  `,
+  ssj4: `
+    <path d="M88 130 Q82 100 90 80 Q100 110 95 130 Z"/>
+    <path d="M100 118 Q95 85 108 70 Q112 100 110 118 Z"/>
+    <path d="M118 112 Q118 75 130 62 Q135 90 128 115 Z"/>
+    <path d="M140 112 Q145 80 155 70 Q155 100 148 115 Z"/>
+    <path d="M155 120 Q162 90 170 80 Q168 108 162 128 Z"/>
+    <path d="M162 132 Q172 105 178 100 Q174 128 168 140 Z"/>
+    <path d="M88 130 Q80 145 84 165 Q92 150 95 130 Z"/>
+    <path d="M168 135 Q176 148 173 168 Q165 152 162 132 Z"/>
+    <ellipse cx="130" cy="97" rx="38" ry="14"/>
+    <path d="M130 195 Q90 230 80 280 Q100 265 115 240 Q125 220 130 200 Z"/>
+    <path d="M130 195 Q170 230 180 280 Q160 265 145 240 Q135 220 130 200 Z"/>
+  `,
+  ssg: `
+    <path d="M86 132 Q80 104 86 80 Q97 108 94 132 Z"/>
+    <path d="M98 120 Q94 88 106 68 Q110 96 108 120 Z"/>
+    <path d="M114 113 Q115 78 126 60 Q132 86 128 114 Z"/>
+    <path d="M138 113 Q142 82 152 66 Q154 92 150 114 Z"/>
+    <path d="M153 122 Q160 94 168 80 Q167 106 162 130 Z"/>
+    <path d="M164 134 Q172 108 177 100 Q174 126 168 140 Z"/>
+    <path d="M86 132 Q80 148 83 166 Q92 152 94 132 Z"/>
+    <path d="M168 136 Q176 150 173 170 Q165 154 162 134 Z"/>
+    <ellipse cx="130" cy="96" rx="40" ry="14"/>
+  `,
+  ssb: `
+    <path d="M84 134 Q76 100 84 72 Q97 105 94 134 Z"/>
+    <path d="M96 120 Q90 84 104 60 Q112 90 108 120 Z"/>
+    <path d="M112 112 Q112 72 124 50 Q132 80 128 114 Z"/>
+    <path d="M138 110 Q143 74 155 54 Q156 88 150 112 Z"/>
+    <path d="M154 116 Q162 86 172 70 Q170 102 163 122 Z"/>
+    <path d="M165 128 Q175 102 181 90 Q178 120 170 136 Z"/>
+    <path d="M84 134 Q75 150 78 172 Q89 154 94 134 Z"/>
+    <path d="M172 132 Q181 148 178 170 Q168 154 165 132 Z"/>
+    <ellipse cx="130" cy="90" rx="43" ry="15"/>
+    <path d="M100 65 Q94 34 106 10 Q116 38 113 65 Z"/>
+    <path d="M126 58 Q124 24 134 2 Q142 28 138 60 Z"/>
+  `,
+  ui: `
+    <path d="M85 134 Q76 100 84 68 Q97 104 93 134 Z"/>
+    <path d="M97 120 Q90 84 104 58 Q112 88 108 120 Z"/>
+    <path d="M112 112 Q110 72 122 48 Q130 78 126 113 Z"/>
+    <path d="M138 110 Q143 75 155 52 Q157 85 150 112 Z"/>
+    <path d="M153 116 Q162 84 172 68 Q170 100 163 120 Z"/>
+    <path d="M164 128 Q175 100 181 88 Q178 118 170 136 Z"/>
+    <path d="M85 134 Q76 152 79 174 Q90 155 93 134 Z"/>
+    <path d="M172 132 Q182 150 179 172 Q168 155 164 132 Z"/>
+    <ellipse cx="130" cy="90" rx="43" ry="14"/>
+    <path d="M100 65 Q93 34 106 8 Q116 36 113 65 Z"/>
+    <path d="M126 58 Q122 24 132 0 Q142 26 138 60 Z"/>
+  `,
+  mui: `
+    <path d="M83 136 Q74 98 83 64 Q97 103 93 136 Z"/>
+    <path d="M96 120 Q88 82 103 54 Q112 85 108 120 Z"/>
+    <path d="M111 112 Q108 68 120 44 Q130 76 125 113 Z"/>
+    <path d="M138 110 Q144 72 156 50 Q158 82 150 112 Z"/>
+    <path d="M154 115 Q163 82 174 64 Q172 98 163 120 Z"/>
+    <path d="M165 128 Q177 98 183 84 Q180 116 170 136 Z"/>
+    <path d="M83 136 Q73 155 77 178 Q88 158 93 136 Z"/>
+    <path d="M174 132 Q184 152 181 175 Q169 156 165 132 Z"/>
+    <ellipse cx="130" cy="88" rx="45" ry="15"/>
+    <path d="M100 65 Q92 32 106 5 Q118 34 114 65 Z"/>
+    <path d="M126 57 Q120 22 130 -4 Q142 24 138 58 Z"/>
+    <path d="M152 60 Q156 26 168 8 Q170 38 162 62 Z"/>
+  `,
+  "true-ui": `
+    <path d="M82 138 Q70 96 81 60 Q97 100 92 138 Z"/>
+    <path d="M94 122 Q86 80 100 50 Q112 82 107 122 Z"/>
+    <path d="M110 114 Q107 66 118 40 Q130 72 124 115 Z"/>
+    <path d="M138 112 Q145 68 158 44 Q160 80 152 113 Z"/>
+    <path d="M154 116 Q165 80 176 62 Q174 97 164 120 Z"/>
+    <path d="M167 128 Q180 96 186 80 Q182 114 172 136 Z"/>
+    <path d="M82 138 Q70 158 74 182 Q87 162 92 138 Z"/>
+    <path d="M176 132 Q188 154 184 180 Q172 158 167 135 Z"/>
+    <ellipse cx="130" cy="86" rx="46" ry="16"/>
+    <path d="M97 60 Q88 20 104 -8 Q118 28 114 62 Z"/>
+    <path d="M122 54 Q116 12 128 -14 Q140 20 136 56 Z"/>
+    <path d="M148 55 Q153 14 166 -4 Q168 30 160 57 Z"/>
+    <path d="M130 195 Q102 235 88 300 Q104 278 116 254 Q125 232 130 200 Z"/>
+    <path d="M130 195 Q158 235 172 300 Q156 278 144 254 Q135 232 130 200 Z"/>
+    <path d="M130 300 Q120 330 118 355 Q127 340 130 318 Q133 340 142 355 Q140 330 130 300 Z"/>
+  `
+};
+
+function getTransformation(level) {
+  return TRANSFORMATIONS.find(t => level >= t.range[0] && level <= t.range[1]) || TRANSFORMATIONS[0];
+}
+
+const root = document.documentElement;
+let currentTransform = null;
+let particleInterval = null;
+
+function applyTheme(t) {
+  const { theme } = t;
+  const props = {
+    '--primary': theme.primary,
+    '--secondary': theme.secondary,
+    '--aura': theme.aura,
+    '--aura2': theme.aura2,
+    '--hair': theme.hair,
+    '--gi': theme.gi,
+    '--gi2': theme.gi2,
+    '--belt': theme.belt,
+    '--bg1': theme.bg1,
+    '--bg2': theme.bg2,
+  };
+  for (const [k, v] of Object.entries(props)) root.style.setProperty(k, v);
+  
+  document.body.style.background = `radial-gradient(ellipse at center, ${theme.bg1} 0%, ${theme.bg2} 100%)`;
+  
+  // Update SVG elements
+  document.querySelectorAll('.hair-base').forEach(el => el.remove());
+  const hairGroup = document.getElementById('hair-group');
+  hairGroup.innerHTML = hairPaths[theme.hairStyle] || hairPaths.base;
+  
+  const eyeL = document.getElementById('eye-l');
+  const eyeR = document.getElementById('eye-r');
+  if (eyeL) eyeL.setAttribute('fill', theme.eyeColor);
+  if (eyeR) eyeR.setAttribute('fill', theme.eyeColor);
+  
+  const lightning = document.getElementById('lightning-group');
+  if (lightning) lightning.style.opacity = theme.lightningOpacity;
+  
+  const flames = document.getElementById('aura-flames');
+  if (flames) flames.style.opacity = theme.auraFlameOpacity;
+
+  // SSJ4 special — red fur overlay
+  updateSpecialEffects(theme);
+}
+
+function updateSpecialEffects(theme) {
+  let existing = document.getElementById('fur-overlay');
+  if (existing) existing.remove();
+  
+  if (theme.hairStyle === 'ssj4') {
+    const svg = document.getElementById('goku-svg');
+    const ns = 'http://www.w3.org/2000/svg';
+    const g = document.createElementNS(ns, 'g');
+    g.id = 'fur-overlay';
+    // Red fur patches
+    const paths = [
+      'M70 190 Q64 210 68 235 Q80 218 82 195 Z',
+      'M190 190 Q196 210 192 235 Q180 218 178 195 Z',
+      'M75 215 Q68 235 72 255 Q84 238 86 218 Z',
+      'M185 215 Q192 235 188 255 Q176 238 174 218 Z',
+    ];
+    paths.forEach(d => {
+      const p = document.createElementNS(ns, 'path');
+      p.setAttribute('d', d);
+      p.setAttribute('fill', '#8B1A00');
+      p.setAttribute('opacity', '0.85');
+      g.appendChild(p);
+    });
+    svg.appendChild(g);
+    
+    // SSJ4 tail visible
+    document.getElementById('tail').style.opacity = '0.85';
+  } else {
+    document.getElementById('tail').style.opacity = '0';
+  }
+  
+  // SSJ3 long hair backdrop
+  let longHair = document.getElementById('long-hair-back');
+  if (longHair) longHair.remove();
+  if (theme.hairStyle === 'ssj3' || theme.hairStyle === 'true-ui') {
+    const svg = document.getElementById('goku-svg');
+    const ns = 'http://www.w3.org/2000/svg';
+    const g = document.createElementNS(ns, 'g');
+    g.id = 'long-hair-back';
+    g.style.fill = theme.hair;
+    g.style.opacity = '0.6';
+    const p = document.createElementNS(ns, 'path');
+    p.setAttribute('d', 'M88 120 Q70 200 72 310 Q82 280 88 240 Q94 300 100 330 Q108 260 108 200 Q120 280 122 340 Q128 260 130 200 Q132 260 138 340 Q140 280 152 200 Q152 260 158 330 Q166 300 170 240 Q176 280 182 310 Q184 200 168 120 Q148 300 130 340 Q112 300 88 120 Z');
+    g.appendChild(p);
+    svg.insertBefore(g, svg.children[3]);
+  }
+}
+
+function updateUI(level) {
+  const t = getTransformation(level);
+  const isNew = !currentTransform || t.name !== currentTransform.name;
+
+  if (isNew) {
+    const flash = document.getElementById('flash');
+    flash.style.setProperty('--primary', t.theme.primary);
+    flash.classList.remove('flash');
+    void flash.offsetWidth;
+    flash.classList.add('flash');
+    applyTheme(t);
+  }
+
+  currentTransform = t;
+
+  // Power display
+  const pd = document.getElementById('power-display');
+  pd.textContent = String(level).padStart(3, '0');
+
+  // Text updates
+  document.getElementById('t-name').textContent = t.name;
+  document.getElementById('t-aka').textContent = t.aka;
+  document.getElementById('t-tier').textContent = t.tier;
+  document.getElementById('t-mult').textContent = t.mult;
+  document.getElementById('t-series').textContent = t.series;
+  document.getElementById('t-arc').textContent = t.arc;
+  document.getElementById('t-level').textContent = `${t.range[0]} — ${t.range[1]}`;
+  document.getElementById('t-desc').textContent = t.desc;
+
+  const abList = document.getElementById('t-abilities');
+  abList.innerHTML = t.abilities.map(a => `<li>${a}</li>`).join('');
+
+  // Stats
+  const s = t.stats;
+  ['str','spd','ki','def','ins'].forEach(k => {
+    const val = s[k];
+    document.getElementById(`stat-${k}`).textContent = `${val}%`;
+    document.getElementById(`bar-${k}`).style.width = `${val}%`;
+  });
+
+  // Slider gradient
+  const slider = document.getElementById('power-slider');
+  const pct = ((level-1)/99)*100;
+  slider.style.background = `linear-gradient(90deg, var(--primary) ${pct}%, rgba(255,255,255,0.1) ${pct}%)`;
+
+  // Markers
+  const markers = document.querySelectorAll('.marker');
+  markers.forEach(m => {
+    const markerLevel = parseInt(m.dataset.level);
+    const mt = getTransformation(markerLevel);
+    m.classList.toggle('active', mt.name === t.name);
+  });
+
+  // Glow intensity
+  const glow = t.theme.glowIntensity;
+  const svg = document.getElementById('goku-svg');
+  svg.style.filter = `drop-shadow(0 0 ${10*glow}px ${t.theme.primary}) drop-shadow(0 0 ${20*glow}px ${t.theme.aura})`;
+}
+
+// Build markers
+function buildMarkers() {
+  const container = document.getElementById('markers');
+  TRANSFORMATIONS.forEach(t => {
+    const midLevel = Math.round((t.range[0]+t.range[1])/2);
+    const m = document.createElement('div');
+    m.className = 'marker';
+    m.dataset.level = t.range[0];
+    m.textContent = t.name.split(' ').slice(-2).join(' ');
+    m.addEventListener('click', () => {
+      document.getElementById('power-slider').value = t.range[0];
+      updateUI(t.range[0]);
+    });
+    container.appendChild(m);
+  });
+}
+
+// PARTICLE CANVAS
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function spawnParticle() {
+  if (!currentTransform) return;
+  const t = currentTransform.theme;
+  const count = Math.ceil(t.particleCount / 60);
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: canvas.width/2 + (Math.random()-0.5)*200,
+      y: canvas.height * 0.55 + (Math.random()-0.5)*100,
+      vx: (Math.random()-0.5)*1.5,
+      vy: -(Math.random()*2 + 0.5),
+      size: Math.random()*3 + 1,
+      life: 1,
+      decay: Math.random()*0.015 + 0.008,
+      color: t.particle,
+    });
+  }
+}
+
+function animateParticles() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  spawnParticle();
+  particles = particles.filter(p => p.life > 0);
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life -= p.decay;
+    p.vx += (Math.random()-0.5)*0.05;
+    ctx.save();
+    ctx.globalAlpha = p.life * 0.7;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+    ctx.fillStyle = p.color;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = p.color;
+    ctx.fill();
+    ctx.restore();
+  });
+  requestAnimationFrame(animateParticles);
+}
+
+// SLIDER EVENTS
+const slider = document.getElementById('power-slider');
+let lastLevel = 1;
+
+slider.addEventListener('input', () => {
+  const level = parseInt(slider.value);
+  updateUI(level);
+});
+
+// Auto-advance demo on load
+function startDemo() {
+  updateUI(1);
+  buildMarkers();
+  animateParticles();
+}
+
+startDemo();
+</script>
+</body>
+</html>
