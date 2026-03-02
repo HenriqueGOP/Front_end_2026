@@ -1,96 +1,124 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busca Binária</title>
-</head>
-<body>
+<!DOCTYPE html> 
+<html lang="pt-BR"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Busca Binária</title> 
+</head> 
 
-    <h1>Guia Profundo sobre o Algoritmo de Busca Binária</h1>
-    <p>A <b>Busca Binária</b> é um dos algoritmos mais eficientes e fundamentais da ciência da computação. Ela resolve o problema de encontrar a posição de um valor específico dentro de um conjunto de dados, utilizando a estratégia de <i>"dividir para conquistar"</i>.</p>
+<body> 
 
-    <hr>
+<h1>Guia Profundo sobre o Algoritmo de Busca Binária</h1> 
 
-    <h2>1. O Pré-requisito Fundamental: Ordenação</h2>
-    <p>Diferente da busca linear, onde verificamos item por item, a busca binária exige que a <b>lista esteja estritamente ordenada</b> (crescente ou decrescente). Sem a ordenação, a lógica de descarte de metades não funciona, pois não haveria garantia de que o alvo estaria em um dos lados remanescentes.</p>
+<p>A <b>Busca Binária</b> é um dos algoritmos mais eficientes e fundamentais da ciência da computação. Ela resolve o problema de encontrar a posição de um valor específico dentro de um conjunto de dados, utilizando a estratégia de <i>"dividir para conquistar"</i>.</p> 
 
-    <hr>
+<hr> 
 
-    <h2>2. Como funciona: A Lógica de Divisão</h2>
-    <p>A cada passo, o algoritmo compara o elemento que você está procurando com o elemento que está exatamente no <b>meio</b> da lista:</p>
-    <ul>
-        <li>Se o elemento do meio for igual ao alvo, a busca termina.</li>
-        <li>Se o alvo for <b>menor</b> que o meio, o algoritmo elimina toda a metade direita e continua a busca apenas na esquerda.</li>
-        <li>Se o alvo for <b>maior</b> que o meio, o algoritmo elimina toda a metade esquerda e continua apenas na direita.</li>
-    </ul>
+<h2>1. O Pré-requisito Fundamental: Ordenação</h2> 
 
-    <h3>Exemplo Visual do Processo de Poteiros:</h3>
-    <!-- Imagem mostrando os passos e ponteiros (Low, High, Mid) -->
-    <img src="https://www.freecodecamp.org/portuguese/news/content/images/2022/07/explicacao2.png" alt="Explicação visual dos ponteiros da busca binária" width="600">
-    <p><i>Na imagem acima, vemos como os limites "baixo" e "alto" se movem para cercar o número alvo conforme as metades são descartadas.</i></p>
+<p>Diferente da busca linear, onde verificamos item por item, a busca binária exige que a <b>lista esteja estritamente ordenada</b> (crescente ou decrescente). Sem a ordenação, a lógica de descarte de metades não funciona, pois não haveria garantia de que o alvo estaria em um dos lados remanescentes.</p> 
 
-    <hr>
+<hr> 
 
-    <h2>3. Comparação de Eficiência: Linear vs. Binária</h2>
-    <p>A grande vantagem da busca binária é sua velocidade em grandes volumes de dados. Enquanto a busca linear cresce em tempo de forma proporcional ao número de itens (O(n)), a busca binária cresce de forma logarítmica (O(log n)).</p>
+<h2>2. Como funciona: A Lógica de Divisão</h2> 
 
-    <h3>Tabela de Comparação de Desempenho:</h3>
-    <!-- Imagem da tabela de eficiência -->
-    <img src="https://www.freecodecamp.org/portuguese/news/content/images/2022/07/tabela.png" alt="Tabela comparativa entre busca linear e binária" width="500">
-    
-    <p><b>Análise da Tabela:</b></p>
-    <ul>
-        <li>Com 1.000 itens: A busca binária resolve em no máximo <b>10 passos</b>.</li>
-        <li>Com 1.000.000 de itens: A busca binária resolve em no máximo <b>20 passos</b>.</li>
-        <li>Isso ocorre porque 2 elevado a 20 é aproximadamente 1 milhão.</li>
-    </ul>
+<p>A cada passo, o algoritmo compara o elemento que você está procurando com o elemento que está exatamente no <b>meio</b> da lista:</p> 
 
-    <hr>
+<ul> 
+<li>Se o elemento do meio for igual ao alvo, a busca termina.</li> 
+<li>Se o alvo for <b>menor</b> que o meio, o algoritmo elimina toda a metade direita e continua a busca apenas na esquerda.</li> 
+<li>Se o alvo for <b>maior</b> que o meio, o algoritmo elimina toda a metade esquerda e continua apenas na direita.</li> 
+</ul> 
 
-    <h2>4. Implementação e Variáveis de Controle</h2>
-    <p>Para executar o algoritmo, precisamos de três indicadores (variáveis de índice):</p>
-    <ol>
-        <li><b>Início (ou Low):</b> Aponta para o primeiro elemento do intervalo atual.</li>
-        <li><b>Fim (ou High):</b> Aponta para o último elemento do intervalo atual.</li>
-        <li><b>Meio (ou Mid):</b> Calculado pela fórmula <code>(Início + Fim) / 2</code>.</li>
-    </ol>
+<h3>Exemplo Visual do Processo de Poteiros:</h3> 
 
-    <!-- Imagem mostrando a representação de árvore/divisão lógica -->
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1IAIXpMSo3ZZUIwY7TyJjQqAU21ebmq5Zdw&s" alt="Diagrama de divisão binária" width="400">
+<img src="https://www.freecodecamp.org/portuguese/news/content/images/2022/07/explicacao2.png" alt="Explicação visual dos ponteiros da busca binária" width="600"> 
 
-    <hr>
+<p><i>Na imagem acima, vemos como os limites "baixo" e "alto" se movem para cercar o número alvo conforme as metades são descartadas.</i></p> 
 
-    <h2>5. Exercício Prático e Raciocínio Lógico</h2>
-    <p>Considere o fluxo lógico de uma questão técnica sobre busca binária. O objetivo é sempre reduzir o espaço de busca de forma sistemática:</p>
-    
-    <!-- Imagem de questão técnica/fluxograma -->
-    <img src="https://arquivos.qconcursos.com/images/provas/56777/dd78c48f5b4817aa56cc.png" alt="Questão técnica sobre busca binária" width="500">
-    
-    <p>No exemplo da imagem acima, observa-se como o algoritmo decide para qual lado seguir. Se o valor buscado fosse o 45 em uma lista ordenada, o algoritmo verificaria o meio, veria que 45 é maior que o valor central e saltaria para a metade superior imediatamente.</p>
+<hr> 
 
-    <hr>
+<h2>3. Comparação de Eficiência: Linear vs. Binária</h2> 
 
-    <h2>6. Resumo Técnico (Pseudocódigo)</h2>
-    <p>Para quem deseja programar a lógica, este é o esqueleto matemático:</p>
-    <pre>
-    Função BuscaBinária(vetor, alvo):
-        Início = 0
-        Fim = comprimento(vetor) - 1
-        
-        Enquanto Início <= Fim:
-            Meio = (Início + Fim) // 2
-            Se vetor[Meio] == alvo:
-                Retorne Meio (Alvo encontrado!)
-            Senão se vetor[Meio] < alvo:
-                Início = Meio + 1
-            Senão:
-                Fim = Meio - 1
-                
-        Retorne Nulo (Alvo não encontrado)
-    </pre>
+<p>A grande vantagem da busca binária é sua velocidade em grandes volumes de dados. Enquanto a busca linear cresce em tempo de forma proporcional ao número de itens (O(n)), a busca binária cresce de forma logarítmica (O(log n)).</p> 
 
-    <hr>
+<h3>Tabela de Comparação de Desempenho:</h3> 
 
-</body>
+<img src="https://www.freecodecamp.org/portuguese/news/content/images/2022/07/tabela.png" alt="Tabela comparativa entre busca linear e binária" width="500"> 
+
+<p><b>Análise da Tabela:</b></p> 
+
+<ul> 
+<li>Com 1.000 itens: A busca binária resolve em no máximo <b>10 passos</b>.</li> 
+<li>Com 1.000.000 de itens: A busca binária resolve em no máximo <b>20 passos</b>.</li> 
+<li>Isso ocorre porque 2 elevado a 20 é aproximadamente 1 milhão.</li> 
+</ul> 
+
+<hr> 
+
+<h2>4. Implementação e Variáveis de Controle</h2> 
+
+<p>Para executar o algoritmo, precisamos de três indicadores (variáveis de índice):</p> 
+
+<ol> 
+<li><b>Início (ou Low):</b> Aponta para o primeiro elemento do intervalo atual.</li> 
+<li><b>Fim (ou High):</b> Aponta para o último elemento do intervalo atual.</li> 
+<li><b>Meio (ou Mid):</b> Calculado pela fórmula <code>(Início + Fim) / 2</code>.</li> 
+</ol> 
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1IAIXpMSo3ZZUIwY7TyJjQqAU21ebmq5Zdw&s" alt="Diagrama de divisão binária" width="400"> 
+
+<hr> 
+
+<h2>5. Exercício Prático e Raciocínio Lógico</h2> 
+
+<p>Considere o fluxo lógico de uma questão técnica sobre busca binária. O objetivo é sempre reduzir o espaço de busca de forma sistemática:</p> 
+
+<img src="https://arquivos.qconcursos.com/images/provas/56777/dd78c48f5b4817aa56cc.png" alt="Questão técnica sobre busca binária" width="500"> 
+
+<p>No exemplo da imagem acima, observa-se como o algoritmo decide para qual lado seguir. Se o valor buscado fosse o 45 em uma lista ordenada, o algoritmo verificaria o meio, veria que 45 é maior que o valor central e saltaria para a metade superior imediatamente.</p> 
+
+<hr> 
+
+<h2>6. Resumo Técnico (Pseudocódigo)</h2> 
+
+<p>Para quem deseja programar a lógica, este é o esqueleto matemático:</p> 
+
+<h3>
+Função BuscaBinária(vetor, alvo):<br>
+Início = 0<br>
+Fim = comprimento(vetor) - 1<br>
+Enquanto Início <= Fim:<br>
+Meio = (Início + Fim) // 2<br>
+Se vetor[Meio] == alvo:<br>
+Retorne Meio (Alvo encontrado!)<br>
+Senão se vetor[Meio] < alvo:<br>
+Início = Meio + 1<br>
+Senão:<br>
+Fim = Meio - 1<br>
+Retorne Nulo (Alvo não encontrado)
+</h3>
+
+<hr>
+
+<h2>7. Avaliação da Experiência do Usuário</h2>
+
+<form>
+<label>Você achou o conteúdo claro?</label><br>
+<input type="radio" name="clareza" value="sim"> Sim<br>
+<input type="radio" name="clareza" value="parcialmente"> Parcialmente<br>
+<input type="radio" name="clareza" value="nao"> Não<br><br>
+
+<label>Qual parte foi mais útil?</label><br>
+<input type="text" name="parte_util"><br><br>
+
+<label>Deixe uma sugestão de melhoria:</label><br>
+<textarea name="sugestao"></textarea><br><br>
+
+<input type="submit" value="Enviar Avaliação">
+</form>
+
+<hr>
+
+</body> 
 </html>
