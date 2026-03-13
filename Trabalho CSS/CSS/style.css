@@ -1,0 +1,312 @@
+
+:root {
+    --fundo-principal: #0d0914; 
+    --fundo-pagina: #161022;    
+    --fundo-card: #221836;      
+    --roxo-destaque: #5e35b1;   
+    --roxo-hover: #7e57c2;      
+    --roxo-claro: #d1c4e9;      
+    --roxo-brilhante: #b388ff; 
+    --texto-escuro: #000000;    
+    --borda-suave: #362554;    
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth; 
+}
+
+body {
+    background-color: var(--fundo-principal);
+    color: var(--roxo-claro);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+#pagina {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: var(--fundo-pagina);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    overflow: hidden; 
+}
+
+header {
+    background: linear-gradient(135deg, #1b112c 0%, #311c52 100%);
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--borda-suave);
+}
+
+header h1, header h2 {
+    color: var(--roxo-brilhante);
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+header p {
+    color: var(--roxo-claro);
+    font-size: 1.1em;
+    opacity: 0.8;
+}
+
+#menu-principal {
+    background-color: #120c1d;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 15px 20px;
+    border-bottom: 2px solid var(--roxo-destaque);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+#menu-principal ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+#menu-principal a {
+    color: var(--roxo-claro);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#menu-principal a:hover {
+    background-color: var(--roxo-destaque);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(94, 53, 177, 0.5);
+}
+
+main {
+    padding: 40px;
+}
+
+section {
+    margin-bottom: 60px;
+}
+
+section > h2 {
+    color: var(--roxo-brilhante);
+    font-size: 1.8em;
+    border-bottom: 2px solid var(--borda-suave);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+article {
+    background-color: var(--fundo-card);
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--roxo-destaque);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+article:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+article h3 {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+ul, ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+blockquote {
+    background-color: rgba(94, 53, 177, 0.1);
+    border-left: 4px solid var(--roxo-hover);
+    padding: 15px 20px;
+    margin: 15px 0;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+    color: #bca0e6;
+}
+
+pre, code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #000000;
+    color: #e2c6ff;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+pre {
+    display: block;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 15px 0;
+    border: 1px solid var(--borda-suave);
+}
+
+details {
+    margin-top: 15px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+summary {
+    color: var(--roxo-brilhante);
+    font-weight: bold;
+    outline: none;
+}
+
+table.com-borda {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    background-color: var(--fundo-card);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table.com-borda caption {
+    color: var(--roxo-claro);
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+table.com-borda th {
+    background-color: var(--roxo-destaque);
+    color: #ffffff;
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+table.com-borda td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--borda-suave);
+    color: var(--roxo-claro);
+}
+
+table.com-borda tbody tr:last-child td {
+    border-bottom: none;
+}
+
+table.com-borda tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+form {
+    background-color: var(--fundo-card);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+fieldset {
+    border: 1px solid var(--borda-suave);
+    border-radius: 6px;
+    padding: 20px;
+    background-color: #1d142e;
+}
+
+legend {
+    color: var(--roxo-brilhante);
+    font-weight: bold;
+    padding: 0 10px;
+    font-size: 1.1em;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #e2d4f8;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    background-color: #0b0713;
+    border: 1px solid var(--borda-suave);
+    color: var(--roxo-claro);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--roxo-brilhante);
+    box-shadow: 0 0 8px rgba(179, 136, 255, 0.4);
+}
+
+input[type="submit"] {
+    background-color: var(--roxo-destaque);
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--roxo-hover);
+}
+
+input[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+footer {
+    background-color: #0c0812;
+    padding: 30px;
+    text-align: center;
+    border-top: 2px solid var(--roxo-destaque);
+    color: #8c78a5;
+    font-size: 0.9em;
+}
+
+footer address {
+    margin-top: 15px;
+    font-style: normal;
+    line-height: 1.8;
+}
+@media (max-width: 768px) {
+    main { padding: 20px; }
+    header { padding: 30px 15px; }
+    header h1, header h2 { font-size: 1.8em; }
+    form { padding: 15px; }
+}

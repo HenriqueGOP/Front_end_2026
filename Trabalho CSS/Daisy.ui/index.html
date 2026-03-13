@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Curiosidades e fatos históricos da Ciência da Computação">
+    <meta name="author" content="Portal Computação">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquivo Confuso da Computação</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.1/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+
+<body class="bg-[#0d0914] text-[#d1c4e9] font-sans antialiased selection:bg-[#5e35b1] selection:text-white pb-8">
+
+<div id="pagina" class="max-w-5xl mx-auto bg-[#161022] shadow-[0_15px_50px_rgba(0,0,0,0.8)] sm:rounded-2xl overflow-hidden border border-[#362554] mt-0 sm:mt-10">
+
+    <header id="topo" class="bg-gradient-to-br from-[#1b112c] to-[#311c52] py-16 px-6 text-center border-b border-[#362554]">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-[#b388ff] mb-4 drop-shadow-lg tracking-tight">Arquivo (Quase) Perdido da Ciência da Computação</h1>
+        <p class="text-lg md:text-xl text-[#d1c4e9] opacity-80 max-w-2xl mx-auto">Uma coletânea caótica de fatos históricos, curiosos e inesperados.</p>
+    </header>
+
+    <nav id="menu-principal" class="sticky top-0 z-50 bg-[#120c1d]/90 backdrop-blur-md border-b-2 border-[#5e35b1] p-3 shadow-lg flex justify-center flex-wrap gap-1 md:gap-3">
+        <a href="#pioneiros" class="btn btn-ghost btn-sm text-[#d1c4e9] hover:bg-[#5e35b1] hover:text-white rounded-full font-medium">Pioneiros</a>
+        <a href="#bugs" class="btn btn-ghost btn-sm text-[#d1c4e9] hover:bg-[#5e35b1] hover:text-white rounded-full font-medium">Bugs Históricos</a>
+        <a href="#internet" class="btn btn-ghost btn-sm text-[#d1c4e9] hover:bg-[#5e35b1] hover:text-white rounded-full font-medium">Internet</a>
+        <a href="#linguagens" class="btn btn-ghost btn-sm text-[#d1c4e9] hover:bg-[#5e35b1] hover:text-white rounded-full font-medium">Linguagens</a>
+        <a href="#linha-do-tempo" class="btn btn-ghost btn-sm text-[#d1c4e9] hover:bg-[#5e35b1] hover:text-white rounded-full font-medium">Linha do Tempo</a>
+        <a href="#nomes" class="btn btn-ghost btn-sm text-[#d1c4e9] hover:bg-[#5e35b1] hover:text-white rounded-full font-medium">Fatos Inúteis</a>
+        <a href="#formularios" class="btn border-none bg-[#5e35b1] btn-sm text-white hover:bg-[#7e57c2] rounded-full font-medium shadow-md">Envie Algo</a>
+    </nav>
+
+    <main class="p-6 md:p-12">
+
+        <section id="pioneiros" class="mb-16">
+            <h2 class="text-3xl font-bold text-[#b388ff] border-b border-[#362554] pb-3 mb-8">Pioneiros Esquecidos</h2>
+
+            <article class="card bg-[#221836] shadow-xl mb-6 border-l-4 border-[#5e35b1] hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#5e35b1]/10 transition-all duration-300">
+                <div class="card-body p-6">
+                    <h3 class="card-title text-white text-xl">Ada Lovelace</h3>
+                    <p>Considerada a primeira programadora da história.</p>
+                    
+                    <details class="collapse collapse-arrow bg-[#161022] border border-[#362554] mt-4">
+                        <summary class="collapse-title text-[#b388ff] font-medium">Ver mais</summary>
+                        <div class="collapse-content">
+                            <p class="text-sm">Ela escreveu um algoritmo para a Máquina Analítica no século XIX.</p>
+                        </div>
+                    </details>
+                </div>
+            </article>
+
+            <article class="card bg-[#221836] shadow-xl mb-6 border-l-4 border-[#5e35b1] hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+                <div class="card-body p-6">
+                    <h3 class="card-title text-white text-xl">Alan Turing</h3>
+                    <p>Criador do conceito de Máquina de Turing.</p>
+                    <blockquote class="border-l-4 border-[#7e57c2] bg-[#5e35b1]/10 p-5 rounded-r-lg mt-4 italic text-[#bca0e6]">
+                        "Podemos ver apenas um pouco do futuro, mas o suficiente para perceber que há muito a fazer."
+                    </blockquote>
+                </div>
+            </article>
+
+            <aside class="bg-[#120c1d] border border-[#362554] rounded-xl p-5 mt-6 flex gap-4 items-center">
+                <div class="text-[#b388ff] text-2xl">💡</div>
+                <div>
+                    <h4 class="font-bold text-[#b388ff] mb-1">Curiosidade lateral</h4>
+                    <p class="text-sm">Durante décadas, o trabalho de Turing foi mantido em segredo.</p>
+                </div>
+            </aside>
+        </section>
+
+
+        <section id="bugs" class="mb-16">
+            <h2 class="text-3xl font-bold text-[#b388ff] border-b border-[#362554] pb-3 mb-8">Histórias de Bugs</h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <article class="card bg-[#221836] shadow-xl border-t-4 border-[#7e57c2]">
+                    <div class="card-body p-6">
+                        <h3 class="card-title text-white text-xl">O Primeiro Bug Real</h3>
+                        <p>Uma mariposa encontrada em um computador em 1947.</p>
+                        <figure class="mt-4 bg-[#161022] p-3 rounded-lg border border-[#362554] text-center text-sm opacity-80">
+                            <figcaption>Registro do bug colado no relatório técnico.</figcaption>
+                        </figure>
+                    </div>
+                </article>
+
+                <article class="card bg-[#221836] shadow-xl border-t-4 border-[#7e57c2]">
+                    <div class="card-body p-6">
+                        <h3 class="card-title text-white text-xl">O Vírus Creeper</h3>
+                        <p>Primeiro vírus da história (1971).</p>
+                        <div class="mockup-code bg-black text-[#f87272] mt-4 shadow-lg w-full">
+                            <pre data-prefix=">"><code>I'M THE CREEPER : CATCH ME IF YOU CAN</code></pre>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <section id="internet" class="mb-16">
+            <h2 class="text-3xl font-bold text-[#b388ff] border-b border-[#362554] pb-3 mb-8">Curiosidades da Internet</h2>
+
+            <div class="space-y-4">
+                <article class="card bg-[#221836] shadow-md border border-[#362554]">
+                    <div class="card-body p-5">
+                        <h3 class="card-title text-white">Primeiro Website</h3>
+                        <p>Criado em 1991 por Tim Berners-Lee.</p>
+                    </div>
+                </article>
+
+                <article class="card bg-[#221836] shadow-md border border-[#362554]">
+                    <div class="card-body p-5">
+                        <h3 class="card-title text-white">ARPANET</h3>
+                        <p>A precursora da internet moderna.</p>
+                        <ul class="list-disc list-inside mt-2 text-[#bca0e6]">
+                            <li>Primeira mensagem enviada: "LO"</li>
+                            <li>O sistema caiu antes de completar "LOGIN"</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card bg-[#221836] shadow-md border border-[#362554]">
+                    <div class="card-body p-5">
+                        <h3 class="card-title text-white">Emojis e ASCII</h3>
+                        <p>Antes dos emojis gráficos, usávamos:</p>
+                        <div class="flex gap-2 mt-3">
+                            <code class="bg-[#120c1d] border border-[#362554] px-3 py-1 rounded-md text-[#b388ff] font-mono">:-)</code>
+                            <code class="bg-[#120c1d] border border-[#362554] px-3 py-1 rounded-md text-[#b388ff] font-mono">;-)</code>
+                            <code class="bg-[#120c1d] border border-[#362554] px-3 py-1 rounded-md text-[#b388ff] font-mono">:-D</code>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="linguagens" class="mb-16">
+            <h2 class="text-3xl font-bold text-[#b388ff] border-b border-[#362554] pb-3 mb-8">Linguagens de Programação</h2>
+
+            <div class="overflow-x-auto my-8">
+                <table class="table w-full bg-[#221836] rounded-xl overflow-hidden shadow-2xl">
+                    <caption class="text-left text-[#bca0e6] font-medium mb-3 italic">Linguagens e Ano de Criação</caption>
+                    <thead class="bg-[#5e35b1] text-white text-sm">
+                        <tr>
+                            <th class="py-4">Linguagem</th>
+                            <th class="py-4">Ano</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-[#362554] hover:bg-[#1b112c] transition-colors">
+                            <td class="font-medium text-white">COBOL</td>
+                            <td>1959</td>
+                        </tr>
+                        <tr class="border-b border-[#362554] hover:bg-[#1b112c] transition-colors">
+                            <td class="font-medium text-white">C</td>
+                            <td>1972</td>
+                        </tr>
+                        <tr class="hover:bg-[#1b112c] transition-colors">
+                            <td class="font-medium text-white">Python</td>
+                            <td>1991</td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="bg-[#120c1d] text-[#8c78a5] text-xs">
+                        <tr>
+                            <td colspan="2" class="py-3 text-center">Dados históricos aproximados</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+        <header class="text-center my-16 bg-[#161022] p-8 rounded-2xl border border-[#362554] shadow-inner">
+            <h2 class="text-2xl md:text-3xl font-bold text-[#b388ff] mb-2">Fatos Inúteis (Mas Incríveis) da Ciência da Computação</h2>
+            <p class="text-[#bca0e6]">Informações que não vão melhorar seu código… mas vão melhorar sua aula.</p>
+        </header>
+
+        <section id="nomes" class="mb-16">
+            <h2 class="text-3xl font-bold text-[#b388ff] border-b border-[#362554] pb-3 mb-8">Nomes Estranhos da Computação</h2>
+
+            <article class="card bg-[#221836] shadow-md border border-[#362554] mb-4">
+                <div class="card-body p-5">
+                    <h3 class="card-title text-white">Spam vem de um presunto</h3>
+                    <p>O termo "spam" para emails indesejados vem de um esquete do <strong class="text-[#b388ff]">Monty Python</strong> onde a palavra SPAM (marca de presunto enlatado) era repetida incessantemente.</p>
+                </div>
+            </article>
+
+            <article class="card bg-[#221836] shadow-md border border-[#362554] mb-4">
+                <div class="card-body p-5">
+                    <h3 class="card-title text-white">Bluetooth tem nome viking</h3>
+                    <p>A tecnologia foi nomeada em homenagem ao rei <em class="text-[#b388ff]">Harald "Bluetooth" Gormsson</em>, que unificou a Dinamarca. A ideia era “unificar dispositivos”.</p>
+                </div>
+            </article>
+        </section>
+
+        <section id="comandos-secretos" class="mb-16">
+            <h2 class="text-3xl font-bold text-[#b388ff] border-b border-[#362554] pb-3 mb-8">Comandos Estranhos e Inúteis</h2>
+
+            <article class="card bg-[#221836] shadow-xl mb-6 border border-[#362554]">
+                <div class="card-body p-6">
+                    <h3 class="card-title text-white">sudo make me a sandwich</h3>
+                    <p>Alguns sistemas Linux realmente respondem a isso.</p>
+                    <div class="mockup-code bg-[#000000] text-[#d1c4e9] mt-4 border border-[#362554] w-full shadow-lg">
+                        <pre data-prefix="$" class="text-warning"><code>sudo make me a sandwich</code></pre>
+                        <pre data-prefix=">" class="text-success"><code>Okay.</code></pre>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card bg-[#221836] shadow-xl mb-6 border border-[#362554]">
+                <div class="card-body p-6">
+                    <h3 class="card-title text-white">O comando que trava o Windows</h3>
+                    <div class="mockup-code bg-black text-[#f87272] mt-2 mb-4 w-full">
+                        <pre data-prefix="C:\>"><code>CON CON</code></pre>
+                    </div>
+                    <p>No Windows antigo, criar uma pasta chamada CON era impossível.</p>
+                </div>
+            </article>
+        </section>
+
+        <section id="formularios" class="mb-10">
+            <h2 class="text-3xl font-bold text-[#b388ff] border-b border-[#362554] pb-3 mb-10">Envie suas Contribuições</h2>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <form class="card bg-[#221836] shadow-2xl p-6 md:p-8 border border-[#362554]">
+                    <h3 class="text-xl font-bold text-[#b388ff] mb-6">Cadastro de Inutilidades</h3>
+                    
+                    <div class="form-control w-full mb-4">
+                        <label class="label" for="nome_inutil"><span class="label-text text-[#e2d4f8] font-medium">Nome:</span></label>
+                        <input type="text" name="nome" id="nome_inutil" class="input input-bordered w-full bg-[#0b0713] border-[#362554] focus:border-[#b388ff] focus:outline-none" />
+                    </div>
+
+                    <div class="form-control w-full mb-4">
+                        <label class="label" for="fato_inutil"><span class="label-text text-[#e2d4f8] font-medium">Fato Inútil:</span></label>
+                        <input type="text" name="fato" id="fato_inutil" class="input input-bordered w-full bg-[#0b0713] border-[#362554] focus:border-[#b388ff] focus:outline-none" />
+                    </div>
+
+                    <div class="form-control w-full mb-6">
+                        <label class="label" for="grau_inutil"><span class="label-text text-[#e2d4f8] font-medium">Grau de inutilidade (0-10):</span></label>
+                        <input type="number" name="grau" id="grau_inutil" min="0" max="10" class="input input-bordered w-full bg-[#0b0713] border-[#362554] focus:border-[#b388ff] focus:outline-none" />
+                    </div>
+
+                    <button type="submit" class="btn border-none bg-[#5e35b1] hover:bg-[#7e57c2] text-white w-full shadow-lg shadow-[#5e35b1]/30">Enviar inutilidade</button>
+                </form>
+
+                <form class="card bg-[#221836] shadow-2xl p-6 md:p-8 border border-[#362554]">
+                    <h3 class="text-xl font-bold text-[#b388ff] mb-6">Cadastro Suspeito (Bugs/Easter Eggs)</h3>
+
+                    <div class="form-control w-full mb-4">
+                        <label class="label" for="nome_suspeito"><span class="label-text text-[#e2d4f8] font-medium">Seu nome:</span></label>
+                        <input type="text" name="nome" id="nome_suspeito" class="input input-bordered w-full bg-[#0b0713] border-[#362554] focus:border-[#b388ff] focus:outline-none" />
+                    </div>
+
+                    <div class="form-control w-full mb-4">
+                        <label class="label" for="tipo_suspeito"><span class="label-text text-[#e2d4f8] font-medium">Tipo:</span></label>
+                        <select name="tipo" id="tipo_suspeito" class="select select-bordered w-full bg-[#0b0713] border-[#362554] focus:border-[#b388ff] focus:outline-none text-[#d1c4e9]">
+                            <option>Bug</option>
+                            <option>Easter Egg</option>
+                            <option>Comando estranho</option>
+                        </select>
+                    </div>
+
+                    <div class="form-control w-full mb-4">
+                        <label class="label" for="descricao_suspeita"><span class="label-text text-[#e2d4f8] font-medium">Descrição:</span></label>
+                        <textarea name="descricao" id="descricao_suspeita" class="textarea textarea-bordered w-full bg-[#0b0713] border-[#362554] focus:border-[#b388ff] focus:outline-none h-24"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn border-none bg-[#5e35b1] hover:bg-[#7e57c2] text-white w-full shadow-lg shadow-[#5e35b1]/30 mt-2">Enviar para arquivos secretos</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer footer-center p-10 bg-[#0c0812] text-[#8c78a5] border-t-2 border-[#5e35b1]">
+        <div>
+            <p class="font-bold text-lg mb-2 text-[#b388ff]">Instituto Internacional de Informações Desnecessárias</p>
+            <p>&copy; 2026 Arquivo Confuso da Computação</p>
+        </div>
+        <div class="flex flex-col md:flex-row gap-4 mt-4 text-sm">
+            <a href="mailto:contato@computacao.com" class="hover:text-white transition-colors">contato@computacao.com</a>
+            <span class="hidden md:inline text-[#362554]">|</span>
+            <a href="mailto:inutilidades@caosdigital.com" class="hover:text-white transition-colors">inutilidades@caosdigital.com</a>
+            <span class="hidden md:inline text-[#362554]">|</span>
+            <a href="mailto:contato@ultrasecreto.dev" class="hover:text-white transition-colors">contato@ultrasecreto.dev</a>
+        </div>
+    </footer>
+
+</div>
+
+</body>
+</html>
