@@ -1,20 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Meus Trabalhos</title>
+    <style>
+        body { 
+            background: #0f172a; 
+            color: white; 
+            font-family: sans-serif; 
+            padding: 20px; 
+        }
+        
+        h1 { text-align: center; margin-bottom: 30px; }
+
+        .grid { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+            justify-content: center; 
+        }
+        
+        .card { 
+            background: #1e293b; 
+            padding: 20px; 
+            border-radius: 10px; 
+            width: 300px; 
+            border: 1px solid #334155; 
+        }
+        
+        .card a { 
+            display: block; 
+            color: #6366f1; 
+            text-decoration: none; 
+            margin-top: 10px; 
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Trabalhos a baixo<br></h1>
-    <a href="https://henriquegop.github.io/Front_end_2026/Trabalho/trabalho.html">Atividade 1</a><br>
-    <a href="https://henriquegop.github.io/Front_end_2026/Busca%20binaria%202702/index.html">Atividade 2</a><br>
-    <h1>Atividade 3 CSS<br></h1>
-    <a href="https://henriquegop.github.io/Front_end_2026/Trabalho CSS/CSS">CSS</a><br>
-    <a href="https://henriquegop.github.io/Front_end_2026/Trabalho CSS/Daisy.ui">Daisyui</a><br>
-    <a href="https://henriquegop.github.io/Front_end_2026/Trabalho CSS/Bootstrap">Bootstrap</a><br><br><br>
- 
-    <a>Extra:<br></a>
-    <a href="https://henriquegop.github.io/Front_end_2026/Trabalho/goku-transformations.html">GOKU</a><br>
+
+    <h1>Meus Trabalhos</h1>
+
+    <div class="grid">
+
+        <div class="card">
+            <h2>Atividade 1</h2>
+            <p>Trabalho principal.</p>
+            <a href="https://henriquegop.github.io/Front_end_2026/Trabalho/trabalho.html">Abrir Trabalho</a>
+        </div>
+
+        <div class="card">
+            <h2>Atividade 2</h2>
+            <p>Busca binária (27/02).</p>
+            <a href="https://henriquegop.github.io/Front_end_2026/Busca%20binaria%202702/index.html">Abrir Trabalho</a>
+        </div>
+
+        <div class="card">
+            <h2>Atividade 3</h2>
+            <p>Frameworks CSS:</p>
+            <a href="https://henriquegop.github.io/Front_end_2026/Trabalho CSS/CSS">CSS Puro</a>
+            <a href="https://henriquegop.github.io/Front_end_2026/Trabalho CSS/Daisy.ui">Daisyui</a>
+            <a href="https://henriquegop.github.io/Front_end_2026/Trabalho CSS/Bootstrap">Bootstrap</a>
+        </div>
+
+        <div class="card">
+            <h2>Extra: Goku</h2>
+            <p>Transformações do personagem.</p>
+            <a href="https://henriquegop.github.io/Front_end_2026/Trabalho/goku-transformations.html">Ver Projeto</a>
+        </div>
+
+    </div>
+
 </body>
 </html>
