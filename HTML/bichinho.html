@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu Pet Virtual - Emoções</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> 
+    <style>
+        body {
+            /* Fallback de gradiente caso a imagem de fundo falhe/não exista */
+            background-color: #87CEEB;
+            background-image: url('bg_d.png'), linear-gradient(to bottom, #87CEEB, #e0f6ff);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 1.5s ease-in-out, background-color 1.5s;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        
+        #stars-container, #particles-container {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 1; opacity: 0;
+        }
+
+        #stars-container {
+            transition: opacity 2s ease-in-out;
+            background-image: radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
+            background-repeat: repeat; background-size: 200px 200px;
+            animation: twinkle 4s infinite alternate;
+        }
+
+        #season-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 30;
+            transition: all 3s ease-in-out;
+        }
+
+        #time-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 31;
+            transition: background-color 2s ease-in-out;
+        }
+
+        @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+        
+        /* ANIMAÇÕES E FILTROS DE EMOÇÃO DO PET */
+        .pet-normal { filter: none; transform: scale(1); }
+        .pet-feliz { filter: drop-shadow(0 0 15px rgba(255,192,203,0.8)); animation: bounce 2s infinite; }
+        .pet-triste { filter: grayscale(0.7) brightness(0.8); transform: scale(0.95) translateY(10px); }
+        .pet-doente { filter: hue-rotate(90deg) saturate(0.6) brightness(0.9); animation: shake 3s infinite; }
+        
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <div id="stars-container"></div>
+    <div id="season-overlay"></div>
+    <div id="time-overlay"></div>
+    <div id="particles-container"></div>
+
+    <!-- UI DO TOPO -->
+    <div class="fixed top-0 left-0 w-full z-50 flex flex-col md:flex-row items-start md:items-center justify-between p-4 gap-4 pointer-events-none">
+        
+        <!-- Status do Pet -->
+        <div class="flex flex-col gap-2 bg-white/80 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 pointer-events-auto w-full md:w-80">
+            <h2 class="text-lg font-extrabold text-gray-800 text-center mb-1" id="pet-nome-display">Meu Bichinho</h2>
+            
+            <div class="flex items-center gap-2">
+                <span class="text-sm font-bold w-20 text-red-500">Fome</span>
+                <progress id="bar-fome" class="progress progress-error w-full" value="0" max="100"></progress>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-sm font-bold w-20 text-yellow-500">Felicidade</span>
+                <progress id="bar-felicidade" class="progress progress-warning w-full" value="100" max="100"></progress>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-sm font-bold w-20 text-green-600">Estômago</span>
+                <progress id="bar-estomago" class="progress progress-success w-full" value="0" max="100"></progress>
+            </div>
+            
+            <div id="status-texto" class="text-center font-bold text-sm mt-2 text-primary">Status: Normal</div>
+        </div>
+
+        <!-- Mundo -->
+        <div class="flex flex-col gap-2 bg-white/80 backdrop-blur-md p-3 rounded-xl shadow-xl border border-white/50 pointer-events-auto">
+            <div class="text-sm font-bold text-gray-800 text-center" id="info-tempo">
+                Dia 1 - Manhã (6h) | Primavera
+            </div>
+        </div>
+    </div>
+
+    <!-- ÁREA DO PET -->
+    <div class="relative z-20 flex flex-col items-center justify-center w-full h-screen px-4">
+        
+        <!-- O Pet é clicável agora para dar carinho! -->
+        <img 
+            id="b" src="b_n.png" alt="Pet" 
+            class="w-full max-w-md h-auto drop-shadow-2xl transition-all duration-500 cursor-pointer pointer-events-auto hover:scale-105"
+            onclick="fazerCarinho()"
+            title="Clique para fazer carinho!"
+        />
+        
+        <!-- Botões de Ação -->
+        <div class="mt-8 flex gap-6 justify-center w-full pointer-events-auto relative z-50">
+            <!-- Alimentar -->
+            <div class="flex flex-col items-center gap-2">
+                <img id="btn" src="btn.png" alt="Alimentar" class="w-24 h-auto active:scale-90 transition-transform cursor-pointer drop-shadow-lg hover:-translate-y-2" onclick="alimentar()"/>
+                <span class="font-bold text-white drop-shadow-md bg-black/30 px-3 py-1 rounded-full text-xs">Alimentar</span>
+            </div>
+            <!-- Curar (Remédio) -->
+            <div class="flex flex-col items-center gap-2">
+                <button onclick="darRemedio()" class="btn btn-circle btn-lg btn-info shadow-lg border-2 border-white text-2xl hover:-translate-y-2 transition-transform">💊</button>
+                <span class="font-bold text-white drop-shadow-md bg-black/30 px-3 py-1 rounded-full text-xs">Remédio</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
