@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grupo" id="grupo-a">
+    <h2>Grupo A</h2>
+    <h3>Seleções</h3>
+    <ul>
+        <li>México</li>
+        <li>África do Sul</li>
+        <li>Coreia do Sul</li>
+        <li>República Tcheca</li>
+    </ul>
+    <details>
+        <summary>Detalhes</summary>
+        <p>O jogo de abertura será México x África do Sul. Confrontos entre Coreia do Sul e seleções europeias já ocorreram em várias Copas, com histórico equilibrado.</p>
+    </details>
+</div>
+
+<div class="grupo" id="grupo-b">
+    <h2>Grupo B</h2>
+    <h3>Seleções</h3>
+    <ul>
+        <li>Canadá</li>
+        <li>Suíça</li>
+        <li>Catar</li>
+        <li>Vaga Europeia (Bósnia)</li>
+    </ul>
+    <details>
+        <summary>Detalhes</summary>
+        <p>O Canadá joga em casa, fator importante de desempenho. Catar e Suíça já se enfrentaram recentemente em amistosos internacionais.</p>
+    </details>
+</div>
+
+<div class="grupo" id="grupo-c">
+    <h2>Grupo C</h2>
+    <h3>Seleções</h3>
+    <ul>
+        <li>Brasil</li>
+        <li>Marrocos</li>
+        <li>Haiti</li>
+        <li>Escócia</li>
+    </ul>
+    <details>
+        <summary>Detalhes</summary>
+        <p>Brasil, Marrocos e Escócia já dividiram grupo em 1998. Brasil nunca perdeu para a Escócia em Copas.</p>
+    </details>
+</div>
+
+<button onclick="proximo()">Próximo</button>
+
+<script>
+function proximo() {
+    const grupos = document.getElementsByClassName("grupo");
+
+    for (let i = grupos.length - 1; i >= 0; i--) {
+        grupos[i].remove();
+    }
+
+    document.body.innerHTML += `
+    <div class="grupo">
+        <h2>Grupo D</h2>
+        <h3>Seleções</h3>
+        <ul>
+            <li>Estados Unidos</li>
+            <li>Paraguai</li>
+            <li>Austrália</li>
+            <li>Turquia</li>
+        </ul>
+        <details>
+            <summary>Detalhes</summary>
+            <p>Os EUA jogam em casa, vantagem histórica em Copas. Austrália enfrenta frequentemente seleções sul-americanas.</p>
+        </details>
+    </div>
+
+    <div class="grupo">
+        <h2>Grupo E</h2>
+        <h3>Seleções</h3>
+        <ul>
+            <li>Alemanha</li>
+            <li>Equador</li>
+            <li>Costa do Marfim</li>
+            <li>Curaçao</li>
+        </ul>
+        <details>
+            <summary>Detalhes</summary>
+            <p>Alemanha costuma dominar fases de grupos. Equador e Costa do Marfim têm estilos físicos semelhantes.</p>
+        </details>
+    </div>
+
+    <div class="grupo">
+        <h2>Grupo F</h2>
+        <h3>Seleções</h3>
+        <ul>
+            <li>Holanda</li>
+            <li>Japão</li>
+            <li>Tunísia</li>
+            <li>Suécia</li>
+        </ul>
+        <details>
+            <summary>Detalhes</summary>
+            <p>Grupo com estilos variados e confrontos equilibrados historicamente.</p>
+        </details>
+    </div>
+    `;
+}
+</script>
+
+</body>
+</html>
