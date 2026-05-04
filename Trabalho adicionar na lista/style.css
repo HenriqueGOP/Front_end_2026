@@ -1,0 +1,76 @@
+/* Definindo a animação "arco-iris" */
+@keyframes background-flash {
+    0% { background-color: red; }
+    25% { background-color: yellow; }
+    50% { background-color: lime; }
+    75% { background-color: blue; }
+    100% { background-color: red; }
+}
+
+@keyframes color-flash {
+    0% { color: red; }
+    25% { color: yellow; }
+    50% { color: lime; }
+    75% { color: blue; }
+    100% { color: red; }
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    /* Aplicando a animação: nome, duração, repetição infinita */
+   animation: background-flash 2s infinite;
+}
+
+.todo-app {
+    text-align: center;
+    max-width: 400px;
+    padding: 20px;
+    width: 32rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   animation: background-flash 0.5s infinite;
+}
+
+input[type="text"]{
+    color: white;
+   animation: background-flash 2s infinite;
+   animation: color-flash 2s infinite;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+   animation: background-flash 2s infinite;
+   animation: color-flash 2s infinite;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+   animation: background-flash 2s infinite;
+   animation: color-flash 2s infinite;
+}
+
+li.completed {
+    text-decoration: line-through;
+   animation: background-flash 2s infinite;
+   animation: color-flash 2s infinite;
+}
+
+button {
+    margin-top: 10px;
+    color: green;
+   animation: background-flash 2s infinite;
+   animation: color-flash 2s infinite;
+}
+
+h2{
+    animation: color-flash 5s infinite;
+
+}
